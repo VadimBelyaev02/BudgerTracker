@@ -1,5 +1,6 @@
 package com.vadim.budgettracker.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 import java.util.Properties;
@@ -25,7 +27,6 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.vadim.budgettracker")
 @PropertySource("classpath:properties/db.properties")
 @EnableJpaRepositories(basePackages = "com.vadim.budgettracker.dao")
-//@EntityScan(basePackages = "com.vadim.budgettracker.entity")
 public class ApplicationConfig {
 
     private final Environment environment;
@@ -35,14 +36,35 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("db.driverClassName"));
-        dataSource.setUsername(environment.getRequiredProperty("db.username"));
-        dataSource.setPassword(environment.getRequiredProperty("db.password"));
-        dataSource.setUrl(environment.getRequiredProperty("db.url"));
-        return dataSource;
+    public BasicDataSource dataSource() {
+        URI dbUri = null;
+        try {
+            dbUri = new URI(System.getenv("DATABASE_URL"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl(dbUrl);
+        basicDataSource.setUsername(username);
+        basicDataSource.setPassword(password);
+
+        return basicDataSource;
     }
+
+//    @Bean
+//    public DataSource dataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(environment.getRequiredProperty("db.driverClassName"));
+//        dataSource.setUsername(environment.getRequiredProperty("db.username"));
+//        dataSource.setPassword(environment.getRequiredProperty("db.password"));
+//        dataSource.setUrl(environment.getRequiredProperty("db.url"));
+//        return dataSource;
+//    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
