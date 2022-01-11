@@ -15,67 +15,55 @@ public class UserConverter {
 
     public User convertToEntity(UserDTO userDTO) {
         final Long id = userDTO.getId();
-        final String firstName = userDTO.getFirstName();
-        final String lastName = userDTO.getLastName();
+        final String nickname = userDTO.getNickname();
         final String email = userDTO.getEmail();
         final String password = userDTO.getPassword();
-        final String vkId = userDTO.getVkId();
         final Role role = userDTO.getRole();
         final Boolean confirmed = userDTO.getConfirmed();
-        final LocalDate createdAt = userDTO.getCreatedAt();
+        final LocalDate createdDate = userDTO.getCreatedDate();
         return User.builder()
                 .id(id)
+                .nickname(nickname)
                 .role(role)
                 .password(password)
                 .email(email)
-                .firstName(firstName)
-                .lastName(lastName)
                 .confirmed(confirmed)
-                .vkId(vkId)
-                .createdAt(createdAt)
+                .createdDate(createdDate)
                 .build();
     }
 
     public UserDTO convertToDTO(User user) {
         final Long id = user.getId();
-        final String firstName = user.getFirstName();
-        final String lastName = user.getLastName();
         final String email = user.getEmail();
+        final String nickname = user.getNickname();
         final String password = user.getPassword();
         final Role role = user.getRole();
         final Boolean confirmed = user.getConfirmed();
-        final LocalDate createdAt = user.getCreatedAt();
-        final String vkId = user.getVkId();
+        final LocalDate createdDate = user.getCreatedDate();
         return UserDTO.builder()
                 .id(id)
                 .role(role)
+                .nickname(nickname)
                 .password(password)
                 .email(email)
-                .firstName(firstName)
-                .lastName(lastName)
                 .confirmed(confirmed)
-                .vkId(vkId)
-                .createdAt(createdAt)
+                .createdDate(createdDate)
                 .build();
     }
 
     public User convertToEntity(RegistrationRequestDTO requestDTO) {
-        final String firstName = requestDTO.getFirstName();
-        final String lastName = requestDTO.getLastName();
+        final String nickname = requestDTO.getNickname();
         final String email = requestDTO.getEmail();
         final String password = requestDTO.getPassword();
         final Role role = Role.USER;
-        final LocalDate createdAt = LocalDate.now();
-        final String vkId = requestDTO.getVkId();
+        final LocalDate createdDate = LocalDate.now();
         return User.builder()
-                .firstName(firstName)
-                .lastName(lastName)
+                .nickname(nickname)
                 .email(email)
                 .password(password)
                 .role(role)
                 .confirmed(false)
-                .createdAt(createdAt)
-                .vkId(vkId)
+                .createdDate(createdDate)
                 .build();
     }
 }

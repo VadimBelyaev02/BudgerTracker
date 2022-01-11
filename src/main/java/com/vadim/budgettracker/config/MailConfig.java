@@ -18,7 +18,7 @@ import java.util.Properties;
 public class MailConfig {
 
     @Value("${mail.password}")
-    private final String password = "ecqxfgeuetrlcsxi";
+    private String password;
     private final String fromEmail = "sendermail83@gmail.com";
 
     @Bean

@@ -1,11 +1,11 @@
 package com.vadim.budgettracker.config;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.net.URISyntaxException;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -24,6 +24,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = "com.vadim.budgettracker")
 @PropertySource("classpath:properties/db.properties")
+@EnableJpaRepositories(basePackages = "com.vadim.budgettracker.dao")
 //@EntityScan(basePackages = "com.vadim.budgettracker.entity")
 public class ApplicationConfig {
 

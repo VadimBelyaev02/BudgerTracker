@@ -61,11 +61,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO update(UserDTO userDTO) {
-        return null;
+        if (!userDAO.existsByEmail(userDTO.getEmail())) {
+            throw new NotFoundException("User with email=" + userDTO.getEmail() + " is not found");
+        }
+        return userConverter.convertToDTO(userDAO.update(userConverter.convertToEntity(userDTO)));
     }
 
     @Override
     public void deleteById(Long id) {
-
+        if (!userDAO.existsById(id)) {
+            throw new NotFoundException("User with id=" + id + " is not found");
+        }
+        userDAO.deleteById(id);
     }
 }

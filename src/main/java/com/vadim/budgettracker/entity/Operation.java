@@ -24,20 +24,10 @@ public class Operation {
     private Long id;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "section")
-    private Section section;
+    private LocalDate createdDate;
 
     @Column(name = "amount")
     private BigDecimal amount;
-
-    @Column(name = "color")
-    private String color;
-
-    @Column(name = "logo")
-    private String logo;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

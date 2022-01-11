@@ -1,17 +1,22 @@
 package com.vadim.budgettracker.model;
 
-import com.vadim.budgettracker.dto.UserDTO;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
-public class AuthorizationRequestDTO {
+public class RegistrationRequestDTO {
 
+  //  @NotBlank
+    @Size(min = 5, max = 30)
+    private String nickname;
+ //   @NotBlank
     @Email
     private String email;
 
-    @Size(min = 5, max = 20)
+   // @NotBlank
+    @Size(min = 5, max = 15)
     private String password;
 }

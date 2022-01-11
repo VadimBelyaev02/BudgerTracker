@@ -9,6 +9,8 @@ public interface CrudDAO<T> {
 
     Optional<T> findById(Long id);
 
+    boolean existsById(Long id);
+
     T save(T t);
 
     void deleteById(Long id);
