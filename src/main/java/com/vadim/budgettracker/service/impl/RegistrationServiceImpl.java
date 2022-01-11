@@ -57,9 +57,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Transactional
     public void confirm(String code) {
         String email = redisDAO.findEmailByCode(code);
-        User user = userDAO.findByEmail(email).orElseThrow(() -> {
-            throw new NotFoundException("User is not found");
-        });
+        User user = userDAO.findByEmail(email).orElseThrow(() ->
+            new NotFoundException("User is not found")
+        );
         user.setConfirmed(true);
         redisDAO.delete(code);
     }
