@@ -21,9 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDAO.findByEmail(email).orElseThrow(() -> {
-            throw new UsernameNotFoundException("The username is not found");
-        });
+        User user = userDAO.findByEmail(email).orElseThrow(() ->
+            new UsernameNotFoundException("The username is not found")
+        );
         return SecurityUser.fromUser(user);
     }
 }

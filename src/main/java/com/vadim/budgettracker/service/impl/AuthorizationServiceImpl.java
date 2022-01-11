@@ -36,9 +36,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     requestDTO.getEmail(), requestDTO.getPassword()));
 
-            User user = userDAO.findByEmail(requestDTO.getEmail()).orElseThrow(() -> {
-                throw new NotFoundException("User is not found");
-            });
+            User user = userDAO.findByEmail(requestDTO.getEmail()).orElseThrow(() ->
+                 new NotFoundException("User is not found")
+            );
             if (!user.getConfirmed()) {
                 throw new AccessDeniedException("User is not confirmed");
             }
