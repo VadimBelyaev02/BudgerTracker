@@ -25,19 +25,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getByEmail(String email) {
-        User user = userDAO.findByEmail(email).orElseThrow(() -> {
-            throw new NotFoundException("User is not found");
-        });
+        User user = userDAO.findByEmail(email).orElseThrow(() ->
+            new NotFoundException("User is not found")
+        );
         return userConverter.convertToDTO(user);
     }
 
     @Override
     public UserDTO getById(Long id) {
-        User user = userDAO.findById(id).orElseThrow(() -> {
-            throw new NotFoundException(
-                    String.format("User with id = %s is not found", id)
-            );
-        });
+        User user = userDAO.findById(id).orElseThrow(() ->
+            new NotFoundException("User with id=" + id + " is not found")
+        );
         return userConverter.convertToDTO(user);
     }
 

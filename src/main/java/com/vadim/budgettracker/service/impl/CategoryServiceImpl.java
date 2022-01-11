@@ -25,9 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO getById(Long id) {
-        Category category = categoryDAO.findById(id).orElseThrow(() -> {
-            throw new NotFoundException("Category with id=" + id + " is not found");
-        });
+        Category category = categoryDAO.findById(id).orElseThrow(() ->
+                new NotFoundException("Category with id=" + id + " is not found")
+        );
         return categoryConverter.convertToDTO(category);
     }
 

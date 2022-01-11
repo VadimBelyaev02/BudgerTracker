@@ -25,9 +25,9 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public OperationDTO getById(Long id) {
-        Operation operation = operationRepository.findById(id).orElseThrow(() -> {
-            throw new NotFoundException("Operation with id=" + id + " is not found");
-        });
+        Operation operation = operationRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Operation with id=" + id + " is not found")
+        );
         return operationConverter.convertToDTO(operation);
     }
 
