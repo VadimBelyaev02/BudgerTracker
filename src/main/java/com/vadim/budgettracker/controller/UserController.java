@@ -21,7 +21,9 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDTO getUser(@PathVariable("id") Long id) {
         //return userService.getById(id);
-        return new UserDTO();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setNickname("IT WORKS!");
+        return userDTO;
     }
 
     @GetMapping
