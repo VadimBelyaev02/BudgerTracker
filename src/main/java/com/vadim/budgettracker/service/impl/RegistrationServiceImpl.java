@@ -41,9 +41,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void register(RegistrationRequestDTO requestDTO) {
         User user = userConverter.convertToEntity(requestDTO);
         user.setPassword(encoder.encode(user.getPassword()));
-        if (userDAO.existsByEmail(user.getEmail())) {
-            throw new AlreadyExistsException("User already exists");
-        }
+//        if (userDAO.existsByEmail(user.getEmail())) {
+//            throw new AlreadyExistsException("User already exists");
+//        }
         String code = UUID.randomUUID().toString();
         String subject = user.getNickname() + ", confirm your profile, please";
 

@@ -15,9 +15,19 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void register(@RequestBody RegistrationRequestDTO registrationDTO) {
+//        registrationService.register(registrationDTO);
+//    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestBody RegistrationRequestDTO registrationDTO) {
+    public void register() {
+        RegistrationRequestDTO registrationDTO = new RegistrationRequestDTO();
+        registrationDTO.setEmail("vadimbelaev002@gmail.com");
+        registrationDTO.setNickname("vadimgf");
+        registrationDTO.setPassword("password");
         registrationService.register(registrationDTO);
     }
 
