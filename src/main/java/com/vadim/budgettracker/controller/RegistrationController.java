@@ -5,6 +5,7 @@ import com.vadim.budgettracker.service.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+//java: reactor.core.publisher.Mono.from(Publisher)Mono/invokeStatic
 @RestController
 @RequestMapping("/api/register")
 public class RegistrationController {
@@ -29,6 +30,7 @@ public class RegistrationController {
         registrationDTO.setNickname("vadimgf");
         registrationDTO.setPassword("password");
         registrationService.register(registrationDTO);
+        // java.lang.IllegalAccessError: no such method: reactor.core.publisher.Mono.from(Publisher)Mono/invokeStatic
     }
 
     @PostMapping("/confirm")
