@@ -21,6 +21,9 @@ public class UserConverter {
         final Role role = userDTO.getRole();
         final Boolean confirmed = userDTO.getConfirmed();
         final LocalDate createdDate = userDTO.getCreatedDate();
+        final String mode = userDTO.getMode();
+        final String currency = userDTO.getCurrency();
+        final String language = userDTO.getLanguage();
         return User.builder()
                 .id(id)
                 .nickname(nickname)
@@ -29,6 +32,9 @@ public class UserConverter {
                 .email(email)
                 .confirmed(confirmed)
                 .createdDate(createdDate)
+                .language(language)
+                .mode(mode)
+                .currency(currency)
                 .build();
     }
 
@@ -39,6 +45,9 @@ public class UserConverter {
         final String password = user.getPassword();
         final Role role = user.getRole();
         final Boolean confirmed = user.getConfirmed();
+        final String mode = user.getMode();
+        final String currency = user.getCurrency();
+        final String language = user.getLanguage();
         final LocalDate createdDate = user.getCreatedDate();
         return UserDTO.builder()
                 .id(id)
@@ -48,6 +57,9 @@ public class UserConverter {
                 .email(email)
                 .confirmed(confirmed)
                 .createdDate(createdDate)
+                .mode(mode)
+                .currency(currency)
+                .language(language)
                 .build();
     }
 
