@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -39,5 +40,6 @@ public class Category {
     private User user;
 
     @OneToMany(mappedBy = "category")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Operation> operations;
 }
