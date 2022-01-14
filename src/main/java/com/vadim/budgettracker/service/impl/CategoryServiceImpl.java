@@ -40,8 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO save(CategoryDTO categoryDTO) {
-        if (categoryDAO.existsById(categoryDTO.getId())) {
-            throw new AlreadyExistsException("Category with id=" + categoryDTO.getId() + " already exists");
+        if (categoryDAO.existsByName(categoryDTO.getName())) {
+            throw new AlreadyExistsException("Category with name=" + categoryDTO.getName() + " already exists");
         }
         Category category = categoryDAO.save(categoryConverter.convertToEntity(categoryDTO));
         return categoryConverter.convertToDTO(category);

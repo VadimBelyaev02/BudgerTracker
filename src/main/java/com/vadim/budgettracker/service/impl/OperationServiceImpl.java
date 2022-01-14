@@ -43,6 +43,7 @@ public class OperationServiceImpl implements OperationService {
         if (operationRepository.existsById(operationDTO.getId())) {
             throw new AlreadyExistsException("Operation with id=" + operationDTO.getId() + " already exists");
         }
+        // need to fix the bug that id is not null, but have to be
         Operation operation = operationRepository.save(operationConverter.convertToEntity(operationDTO));
         return operationConverter.convertToDTO(operation);
     }

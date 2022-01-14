@@ -51,6 +51,14 @@ public class User {
     @Column(name = "mode")
     private String mode;
 
+    @Column(name = "mode")
+    private String mode;
+
+    @Column(name = "language")
+    private String language;
+
+    private String currency;
+
     @OneToMany(mappedBy = "user")
     private List<Category> categories;
 

@@ -23,13 +23,18 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 
     @Override
-    public List<Operation> findAllByUserId(Long userId) {
+    public List<Category> findAllByUserId(Long userId) {
         return null;
     }
 
     @Override
     public Category getById(Long categoryId) {
         return null;
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return false;
     }
 
     @Override
