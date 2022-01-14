@@ -34,6 +34,6 @@ public class Operation {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_name")
     private Category category;
 }

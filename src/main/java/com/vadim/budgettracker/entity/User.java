@@ -1,5 +1,6 @@
 package com.vadim.budgettracker.entity;
 
+import com.vadim.budgettracker.entity.enums.Currency;
 import com.vadim.budgettracker.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,15 @@ public class User {
 
     @Column(name = "confirmed")
     private Boolean confirmed;
+
+    @Column(name = "language")
+    private String language;
+
+    @Column(name = "currency")
+    private String currency;
+
+    @Column(name = "mode")
+    private String mode;
 
     @OneToMany(mappedBy = "user")
     private List<Category> categories;

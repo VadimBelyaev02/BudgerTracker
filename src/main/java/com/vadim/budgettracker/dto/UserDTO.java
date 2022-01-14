@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -28,22 +29,28 @@ public class UserDTO {
     private Long id;
 
   //  @NotBlank
-    @Size(min = 5, max = 30)
-    private String nickname;
+   @Size(min = 5, max = 30)
+   private String nickname;
 
-    @JsonIgnore
-    private String password;
+   @JsonIgnore
+   private String password;
 
-    @Email
-    private String email;
+   @Email
+   private String email;
 
-    @NotNull
-    @JsonSerialize(using = ToStringSerializer.class)
+   @NotNull
+   @JsonSerialize(using = ToStringSerializer.class)
     private LocalDate createdDate;
 
-    @NotNull
-    private Role role;
+   @NotNull
+   private Role role;
 
-    @NotNull
-    private Boolean confirmed;
+   @NotNull
+   private Boolean confirmed;
+
+    private String language;
+
+    private String currency;
+
+    private String mode;
 }
