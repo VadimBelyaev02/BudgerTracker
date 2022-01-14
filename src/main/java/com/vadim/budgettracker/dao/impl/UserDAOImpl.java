@@ -2,6 +2,7 @@ package com.vadim.budgettracker.dao.impl;
 
 import com.vadim.budgettracker.dao.UserDAO;
 import com.vadim.budgettracker.entity.User;
+import com.vadim.budgettracker.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -29,6 +31,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<User> findById(Long id) {
         User user = manager.find(User.class, id);
+        if (Objects.isNull(user)) {
+            return Optional.empty();
+        }
         manager.detach(user);
         return Optional.of(user);
     }
@@ -80,7 +85,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getById(Long userId) {
-        return null;
+        User user = manager.find(User.class, userId);
+        if (Objects.isNull(user)) {
+            throw new NotFoundException("User with id=" + userId + " is not found");
+        }
+        return user;
     }
 }
 
