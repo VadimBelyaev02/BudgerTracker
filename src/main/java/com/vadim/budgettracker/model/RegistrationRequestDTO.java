@@ -9,14 +9,13 @@ import javax.validation.constraints.Size;
 @Data
 public class RegistrationRequestDTO {
 
-  //  @NotBlank
-    @Size(min = 5, max = 30)
+    @Size(min = 4, max = 30)
     private String nickname;
- //   @NotBlank
+
     @Email
     private String email;
 
-   // @NotBlank
-    @Size(min = 5, max = 15)
+    @Size(min = 4, max = 15)
     private String password;
+
 }

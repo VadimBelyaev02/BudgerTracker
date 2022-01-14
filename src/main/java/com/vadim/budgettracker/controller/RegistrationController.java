@@ -16,22 +16,21 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void register(@RequestBody RegistrationRequestDTO registrationDTO) {
-//        registrationService.register(registrationDTO);
-//    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void register() {
-        RegistrationRequestDTO registrationDTO = new RegistrationRequestDTO();
-        registrationDTO.setEmail("vadimbelaev002@gmail.com");
-        registrationDTO.setNickname("vadimgf");
-        registrationDTO.setPassword("password");
+    public void register(@RequestBody RegistrationRequestDTO registrationDTO) {
         registrationService.register(registrationDTO);
-        // java.lang.IllegalAccessError: no such method: reactor.core.publisher.Mono.from(Publisher)Mono/invokeStatic
     }
+
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void register() {
+//        RegistrationRequestDTO registrationDTO = new RegistrationRequestDTO();
+//        registrationDTO.setEmail("vadimbelaev002@gmail.com");
+//        registrationDTO.setNickname("vadimgf");
+//        registrationDTO.setPassword("password");
+//        registrationService.register(registrationDTO);
+//    }
 
     @PostMapping("/confirm")
     @ResponseStatus(HttpStatus.OK)

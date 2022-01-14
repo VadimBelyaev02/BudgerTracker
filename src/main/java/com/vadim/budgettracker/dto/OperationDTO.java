@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Builder
 public class OperationDTO {
 
-    @NotNull
     private Long id;
 
     @NotNull

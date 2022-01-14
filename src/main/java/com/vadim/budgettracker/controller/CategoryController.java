@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
@@ -24,6 +25,13 @@ public class CategoryController {
     public CategoryDTO getCategory(@PathVariable("id") Long id) {
         return categoryService.getById(id);
     }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<CategoryDTO> getAllCategories() {
+        return categoryService.getAll();
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
