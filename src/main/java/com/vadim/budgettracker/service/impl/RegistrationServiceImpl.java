@@ -60,6 +60,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             new NotFoundException("User is not found")
         );
         user.setConfirmed(true);
+        // have to persists user
         redisDAO.delete(code);
     }
 }

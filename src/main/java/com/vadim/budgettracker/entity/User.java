@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -51,17 +52,11 @@ public class User {
     @Column(name = "mode")
     private String mode;
 
-    @Column(name = "mode")
-    private String mode;
-
-    @Column(name = "language")
-    private String language;
-
-    private String currency;
-
     @OneToMany(mappedBy = "user")
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Category> categories;
 
     @OneToMany(mappedBy = "user")
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Operation> operations;
 }

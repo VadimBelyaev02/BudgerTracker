@@ -69,6 +69,8 @@ public class UserConverter {
         final String password = requestDTO.getPassword();
         final Role role = Role.USER;
         final LocalDate createdDate = LocalDate.now();
+        final String mode = "light";
+        final String
         return User.builder()
                 .nickname(nickname)
                 .email(email)
