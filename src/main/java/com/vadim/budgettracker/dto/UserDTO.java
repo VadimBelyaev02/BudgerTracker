@@ -24,7 +24,6 @@ public class UserDTO {
 
     private Long id;
 
-  //  @NotBlank
     @Size(min = 5, max = 30)
     private String nickname;
 

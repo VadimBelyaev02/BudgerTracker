@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean existsById(Long id) {
-        return false;
+        return Objects.isNull(manager.find(User.class, id));
     }
 
     @Override
@@ -71,21 +71,23 @@ public class UserDAOImpl implements UserDAO {
     public boolean existsByEmail(String email) {
         return manager.createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
                 .setParameter("email", email)
-                .getSingleResult() == null;
-        // can be a mistake like it will throw an exception
+                .getResultList().isEmpty();
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        User user = manager.createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
+        List<User> users = manager.createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
                 .setParameter("email", email)
-                .getSingleResult();
-        return Optional.of(user);
+                .getResultList();
+        if (users.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(users.get(0));
     }
 
     @Override
     public User getById(Long userId) {
-        User user = manager.find(User.class, userId);
+        User user = manager.getReference(User.class, userId);
         if (Objects.isNull(user)) {
             throw new NotFoundException("User with id=" + userId + " is not found");
         }
