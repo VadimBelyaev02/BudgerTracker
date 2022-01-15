@@ -39,6 +39,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public void register(RegistrationRequestDTO requestDTO) {
+        if (true) {
+            String code = UUID.randomUUID().toString();
+            senderService.sendMessage(requestDTO.getNickname(), requestDTO.getEmail(), code); //subg email message
+            return;
+        }
+
         User user = userConverter.convertToEntity(requestDTO);
         user.setPassword(encoder.encode(user.getPassword()));
         if (userDAO.existsByEmail(user.getEmail())) {
