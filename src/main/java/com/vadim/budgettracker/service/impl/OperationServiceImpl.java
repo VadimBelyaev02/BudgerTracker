@@ -1,5 +1,6 @@
 package com.vadim.budgettracker.service.impl;
 
+import com.vadim.budgettracker.dao.OperationDAO;
 import com.vadim.budgettracker.dao.OperationRepository;
 import com.vadim.budgettracker.dto.OperationDTO;
 import com.vadim.budgettracker.dto.converter.OperationConverter;
@@ -36,6 +37,9 @@ public class OperationServiceImpl implements OperationService {
         return operationRepository.findAll().stream()
                 .map(operationConverter::convertToDTO)
                 .collect(Collectors.toList());
+//        return operationDAO.findAll().stream()
+//                .map(operationConverter::convertToDTO)
+//                .collect(Collectors.toList());
     }
 
     @Override
@@ -43,7 +47,7 @@ public class OperationServiceImpl implements OperationService {
         if (operationRepository.existsById(operationDTO.getId())) {
             throw new AlreadyExistsException("Operation with id=" + operationDTO.getId() + " already exists");
         }
-        // need to fix the bug that id is not null, but have to be
+        // need to fix the bug that id is not null, but has to be
         Operation operation = operationRepository.save(operationConverter.convertToEntity(operationDTO));
         return operationConverter.convertToDTO(operation);
     }

@@ -47,4 +47,10 @@ public class ResponseEntityExceptionHandler {
         ExceptionInfo info = new ExceptionInfo(e.getMessage(), HttpStatus.FORBIDDEN.value());
         return new ResponseEntity<>(info, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleNotFoundException(NotFoundException e) {
+        ExceptionInfo info = new ExceptionInfo(e.getMessage(), HttpStatus.NOT_FOUND.value());
+        return new ResponseEntity<>(info, HttpStatus.NOT_FOUND);
+    }
 }
