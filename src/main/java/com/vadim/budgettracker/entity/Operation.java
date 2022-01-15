@@ -21,17 +21,18 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "created_at")
-    private LocalDate createdDate;
-
     @Column(name = "amount")
     private BigDecimal amount;
+
+    @ManyToOne
+    @JoinColumn(name = "category_name")
+    private Category category;
+
+    @Column(name = "created_date")
+    private LocalDate createdDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "category_name")
-    private Category category;
 }

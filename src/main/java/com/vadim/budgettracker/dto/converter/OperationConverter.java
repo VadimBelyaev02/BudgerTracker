@@ -27,13 +27,13 @@ public class OperationConverter {
         final LocalDate createdDate = operationDTO.getCreatedDate();
         final BigDecimal amount = operationDTO.getAmount();
         final User user = userDAO.getById(operationDTO.getUserId());
-      //  final Category category = categoryDAO.getByName(operationDTO.getCategoryName());
+        final Category category = categoryDAO.getByName(operationDTO.getCategoryName());
         return Operation.builder()
                 .id(id)
                 .createdDate(createdDate)
                 .amount(amount)
                 .user(user)
-      //          .category(category)
+                .category(category)
                 .build();
     }
 
@@ -42,11 +42,11 @@ public class OperationConverter {
         final LocalDate createdDate = operation.getCreatedDate();
         final BigDecimal amount = operation.getAmount();
         final Long userId = operation.getUser().getId();
-    //    final Long categoryId = operation.getCategory().getId();
+        final String categoryName = operation.getCategory().getName();
         return OperationDTO.builder()
                 .id(id)
                 .createdDate(createdDate)
-      //          .categoryId(categoryId)
+                .categoryName(categoryName)
                 .userId(userId)
                 .amount(amount)
                 .build();
