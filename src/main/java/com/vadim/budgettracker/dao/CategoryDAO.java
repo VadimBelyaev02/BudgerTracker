@@ -11,4 +11,6 @@ public interface CategoryDAO extends CrudDAO<Category> {
     Category getById(Long categoryId);
 
     boolean existsByName(String name);
+
+    Category getByName(String categoryName);
 }

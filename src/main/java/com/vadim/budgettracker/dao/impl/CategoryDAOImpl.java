@@ -40,6 +40,17 @@ public class CategoryDAOImpl implements CategoryDAO {
                 .getResultList().isEmpty();    }
 
     @Override
+    public Category getByName(String name) {
+        List<Category> categories = manager.createQuery("SELECT u FROM Category u WHERE u.name=:name", Category.class)
+                .setParameter("name", name)
+                .getResultList();
+        if (categories.isEmpty()) {
+            throw new NotFoundException("Category with name=" + name + " is not found");
+        }
+        return categories.get(0);
+    }
+
+    @Override
     public List<Category> findAll() {
         return manager.createQuery("SELECT u FROM Category u", Category.class)
                 .getResultList();
