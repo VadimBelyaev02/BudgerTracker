@@ -38,6 +38,6 @@ public class Category {
     private User user;
 
     @OneToMany(mappedBy = "category")
-    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private List<Operation> operations;
 }
