@@ -18,7 +18,7 @@ public class CategoryConverter {
     public Category convertToEntity(CategoryDTO categoryDTO) {
         final Long id = categoryDTO.getId();
         final String name = categoryDTO.getName();
-        final Section section = categoryDTO.getSection();
+        final String section = categoryDTO.getSection();
         final String color = categoryDTO.getColor();
         final String logo = categoryDTO.getLogo();
         final User user = userDAO.getById(categoryDTO.getUserId());
@@ -35,7 +35,7 @@ public class CategoryConverter {
     public CategoryDTO convertToDTO(Category category) {
         final Long id = category.getId();
         final String name = category.getName();
-        final Section section = category.getSection();
+        final String section = category.getSection();
         final String color = category.getColor();
         final String logo = category.getLogo();
         final Long userId = category.getUser().getId();
