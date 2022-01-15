@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/operation")
+@RequestMapping("/api/operations")
 public class OperationController {
 
     private final OperationService operationService;

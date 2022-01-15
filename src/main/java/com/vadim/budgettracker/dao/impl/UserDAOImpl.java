@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean existsById(Long id) {
-        return Objects.isNull(manager.find(User.class, id));
+        return !Objects.isNull(manager.find(User.class, id));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean existsByEmail(String email) {
-        return manager.createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
+        return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
                 .setParameter("email", email)
                 .getResultList().isEmpty();
     }

@@ -2,11 +2,12 @@ package com.vadim.budgettracker.service.impl;
 
 import com.vadim.budgettracker.exception.MailSendingException;
 import com.vadim.budgettracker.service.MailSenderService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -22,11 +23,21 @@ public class MailSenderServiceImpl implements MailSenderService {
 
     @Override
     public void sendMessage(String subject, String email, String message) {
+        String URL = "https://budgettrackerjsonholder.herokuapp.com/api/register/confirm?code=";
+        String link = URL + message;
+        String text = "<html>" +
+                "<head><title>"+subject+"</title></head>" +
+                "<body>" +
+                "Click <a href=\"" + link + "\">here</a> to confirm your account." +
+                "</body>" +
+                "</html>";
 
         try {
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             mimeMessage.setSubject(subject);
-            mimeMessage.setText(message);
+           // mimeMessage.setText(message);
+            mimeMessage.setContent(text, "text/html");
+        //    mimeMessage.setText(text);
             Transport.send(mimeMessage);
         } catch (MessagingException e) {
             throw new MailSendingException("There was an exception during sending the message", e);

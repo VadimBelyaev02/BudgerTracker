@@ -67,17 +67,16 @@ public class UserConverter {
         final String nickname = requestDTO.getNickname();
         final String email = requestDTO.getEmail();
         final String password = requestDTO.getPassword();
-        final Role role = Role.USER;
-        final LocalDate createdDate = LocalDate.now();
-        final String mode = "light";
-        final String
         return User.builder()
                 .nickname(nickname)
                 .email(email)
                 .password(password)
-                .role(role)
+                .role(Role.USER)
                 .confirmed(false)
-                .createdDate(createdDate)
+                .createdDate(LocalDate.now())
+                .mode("light")
+                .language("english")
+                .currency("USD")
                 .build();
     }
 }

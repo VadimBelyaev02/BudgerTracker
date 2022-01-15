@@ -28,7 +28,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     public Category getById(Long categoryId) {
         Category category = manager.getReference(Category.class, categoryId);
         if (Objects.isNull(category)) {
-            throw new NotFoundException("User with id=" + userId + " is not found");
+            throw new NotFoundException("User with id=" + categoryId + " is not found");
         }
         return category;
     }
@@ -41,17 +41,23 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public List<Category> findAll() {
-        return null;
+        return manager.createQuery("SELECT u FROM Category u", Category.class)
+                .getResultList();
     }
 
     @Override
     public Optional<Category> findById(Long id) {
-        return Optional.empty();
+        Category category = manager.find(Category.class, id);
+        if (Objects.isNull(category)) {
+            return Optional.empty();
+        }
+        manager.detach(category);
+        return Optional.of(category);
     }
 
     @Override
     public boolean existsById(Long id) {
-
+        return !Objects.isNull(manager.find(Category.class, id));
     }
 
     @Override
