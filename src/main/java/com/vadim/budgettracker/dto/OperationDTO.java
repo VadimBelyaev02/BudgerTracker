@@ -1,14 +1,9 @@
 package com.vadim.budgettracker.dto;
 
-import com.vadim.budgettracker.entity.Category;
-import com.vadim.budgettracker.entity.User;
-import com.vadim.budgettracker.entity.enums.Section;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
