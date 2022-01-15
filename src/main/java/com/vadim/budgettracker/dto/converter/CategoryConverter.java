@@ -4,7 +4,6 @@ import com.vadim.budgettracker.dao.UserDAO;
 import com.vadim.budgettracker.dto.CategoryDTO;
 import com.vadim.budgettracker.entity.Category;
 import com.vadim.budgettracker.entity.User;
-import com.vadim.budgettracker.entity.enums.Section;
 import org.springframework.stereotype.Component;
 
 @Component

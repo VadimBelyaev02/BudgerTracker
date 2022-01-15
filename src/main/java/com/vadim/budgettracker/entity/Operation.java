@@ -1,7 +1,5 @@
 package com.vadim.budgettracker.entity;
 
-import com.vadim.budgettracker.entity.enums.Currency;
-import com.vadim.budgettracker.entity.enums.Section;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

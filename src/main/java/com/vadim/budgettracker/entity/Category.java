@@ -1,6 +1,5 @@
 package com.vadim.budgettracker.entity;
 
-import com.vadim.budgettracker.entity.enums.Section;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Builder
@@ -26,8 +24,8 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @Enumerated(value = EnumType.STRING)
-    private Section section;
+    @Column(name = "section")
+    private String section;
 
     @Column(name = "color")
     private String color;
@@ -40,6 +38,6 @@ public class Category {
     private User user;
 
     @OneToMany(mappedBy = "category")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Operation> operations;
 }

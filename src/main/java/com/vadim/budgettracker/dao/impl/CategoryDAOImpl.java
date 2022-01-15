@@ -2,25 +2,22 @@ package com.vadim.budgettracker.dao.impl;
 
 import com.vadim.budgettracker.dao.CategoryDAO;
 import com.vadim.budgettracker.entity.Category;
-import com.vadim.budgettracker.entity.Operation;
 import com.vadim.budgettracker.entity.User;
-import com.vadim.budgettracker.entity.enums.Section;
 import com.vadim.budgettracker.exception.NotFoundException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
-import javax.sql.DataSource;
-import java.sql.ResultSet;
+import javax.persistence.EntityManager;
 import java.util.*;
 
 @Repository
 public class CategoryDAOImpl implements CategoryDAO {
 
+    private final EntityManager manager;
+
+    public CategoryDAOImpl(@Qualifier("entityManager") EntityManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public List<Category> findAllByUserId(Long userId) {
@@ -29,13 +26,18 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public Category getById(Long categoryId) {
-        return null;
+        Category category = manager.getReference(Category.class, categoryId);
+        if (Objects.isNull(category)) {
+            throw new NotFoundException("User with id=" + userId + " is not found");
+        }
+        return category;
     }
 
     @Override
     public boolean existsByName(String name) {
-        return false;
-    }
+        return manager.createQuery("SELECT u FROM Catergory u WHERE u.name=:name", User.class)
+                .setParameter("name", name)
+                .getResultList().isEmpty();    }
 
     @Override
     public List<Category> findAll() {
@@ -49,22 +51,31 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public boolean existsById(Long id) {
-        return false;
+
     }
 
     @Override
     public Category save(Category category) {
-        return null;
+        manager.getTransaction().begin();
+        manager.persist(category);
+        manager.getTransaction().commit();
+        return category;
     }
 
     @Override
     public void deleteById(Long id) {
-
+        manager.getTransaction().begin();
+        Category category = manager.find(Category.class, id);
+        manager.remove(category);
+        manager.getTransaction().commit();
     }
 
     @Override
     public Category update(Category category) {
-        return null;
+        manager.getTransaction().begin();
+        category = manager.merge(category);
+        manager.getTransaction().commit();
+        return category;
     }
 }
 
