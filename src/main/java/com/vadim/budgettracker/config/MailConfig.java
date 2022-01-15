@@ -1,15 +1,13 @@
 package com.vadim.budgettracker.config;
 
 import com.vadim.budgettracker.exception.MailSendingException;
-import com.vadim.budgettracker.service.MailSenderService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
+import org.springframework.core.env.Environment;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
@@ -20,14 +18,19 @@ public class MailConfig {
     @Value("${mail.password}")
     private String password;
     private final String fromEmail = "sendermail83@gmail.com";
+    private final Environment env;
+
+    public MailConfig(Environment environment) {
+        this.env = environment;
+    }
 
     @Bean
     public Session session() {
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", 587);
+        props.put("mail.smtp.auth", env.getRequiredProperty("mail.smtp.auth"));
+        props.put("mail.smtp.starttls.enable", env.getRequiredProperty("mail.smtp.starttls.enable"));
+        props.put("mail.smtp.host", env.getRequiredProperty("mail.smtp.host"));
+        props.put("mail.smtp.port", env.getRequiredProperty("mail.smtp.port"));
         return Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(fromEmail, password);
