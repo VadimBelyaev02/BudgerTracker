@@ -8,6 +8,7 @@ import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.service.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDTO getById(Long id) {
         Category category = categoryDAO.findById(id).orElseThrow(() ->
                 new NotFoundException("Category with id=" + id + " is not found")
@@ -32,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public List<CategoryDTO> getAll() {
         return categoryDAO.findAll().stream()
                 .map(categoryConverter::convertToDTO)
@@ -39,6 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDTO save(CategoryDTO categoryDTO) {
         if (categoryDAO.existsByName(categoryDTO.getName())) {
             throw new AlreadyExistsException("Category with name=" + categoryDTO.getName() + " already exists");
@@ -48,6 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDTO update(CategoryDTO categoryDTO) {
         if (!categoryDAO.existsById(categoryDTO.getId())) {
             throw new NotFoundException("Category with id=" + categoryDTO.getId() + " is not found");
@@ -57,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         if (!categoryDAO.existsById(id)) {
             throw new NotFoundException("Category with id=" + id + " is not found");
