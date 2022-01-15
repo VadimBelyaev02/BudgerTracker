@@ -1,6 +1,5 @@
 package com.vadim.budgettracker.service.impl;
 
-import com.vadim.budgettracker.dao.OperationDAO;
 import com.vadim.budgettracker.dao.OperationRepository;
 import com.vadim.budgettracker.dto.OperationDTO;
 import com.vadim.budgettracker.dto.converter.OperationConverter;
@@ -9,6 +8,7 @@ import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.service.OperationService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +25,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    @Transactional
     public OperationDTO getById(Long id) {
         Operation operation = operationRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("Operation with id=" + id + " is not found")
@@ -33,16 +34,15 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    @Transactional
     public List<OperationDTO> getAll() {
         return operationRepository.findAll().stream()
                 .map(operationConverter::convertToDTO)
                 .collect(Collectors.toList());
-//        return operationDAO.findAll().stream()
-//                .map(operationConverter::convertToDTO)
-//                .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public OperationDTO save(OperationDTO operationDTO) {
         if (operationRepository.existsById(operationDTO.getId())) {
             throw new AlreadyExistsException("Operation with id=" + operationDTO.getId() + " already exists");
@@ -53,6 +53,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    @Transactional
     public OperationDTO update(OperationDTO operationDTO) {
         if (!operationRepository.existsById(operationDTO.getId())) {
             throw new NotFoundException("Operation with id=" + operationDTO.getId() + " is not found");
@@ -62,6 +63,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         if (!operationRepository.existsById(id)) {
             throw new NotFoundException("Operation with id=" + id + " is not found");
@@ -70,6 +72,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    @Transactional
     public List<OperationDTO> getAllByUserId(Long userId) {
         return operationRepository.findAllByUserId(userId).stream()
                 .map(operationConverter::convertToDTO)
@@ -77,6 +80,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    @Transactional
     public OperationDTO getUserOperationById(Long userId, Long operationId) {
 //        Operation operation = operationRepository.findByOperationIdAndUserId(operationId, userId)
 //                .orElseThrow(() -> {

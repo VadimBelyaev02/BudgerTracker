@@ -38,6 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 
     @Override
+    @Transactional
     public void register(RegistrationRequestDTO requestDTO) {
         if (true) {
             String code = UUID.randomUUID().toString();

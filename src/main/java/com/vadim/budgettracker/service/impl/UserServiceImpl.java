@@ -9,6 +9,7 @@ import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO getByEmail(String email) {
         User user = userDAO.findByEmail(email).orElseThrow(() ->
             new NotFoundException("User is not found")
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO getById(Long id) {
         User user = userDAO.findById(id).orElseThrow(() ->
             new NotFoundException("User with id=" + id + " is not found")
@@ -43,6 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<UserDTO> getAll() {
         return userDAO.findAll().stream()
                 .map(userConverter::convertToDTO)
@@ -50,6 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO save(UserDTO userDTO) {
         if (userDAO.existsByEmail(userDTO.getEmail())) {
             throw new AlreadyExistsException(
@@ -61,6 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDTO update(UserDTO userDTO) {
         if (!userDAO.existsByEmail(userDTO.getEmail())) {
             throw new NotFoundException("User with email=" + userDTO.getEmail() + " is not found");
@@ -69,6 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         if (!userDAO.existsById(id)) {
             throw new NotFoundException("User with id=" + id + " is not found");
