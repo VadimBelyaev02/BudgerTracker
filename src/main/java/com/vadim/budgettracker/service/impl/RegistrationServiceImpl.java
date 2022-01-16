@@ -40,11 +40,11 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public void register(RegistrationRequestDTO requestDTO) {
-        if (true) {
-            String code = UUID.randomUUID().toString();
-            senderService.sendMessage(requestDTO.getNickname(), requestDTO.getEmail(), code); //subg email message
-            return;
-        }
+//        if (true) {
+//            String code = UUID.randomUUID().toString();
+//            senderService.sendMessage(requestDTO.getNickname(), requestDTO.getEmail(), code); //subg email message
+//            return;
+//        }
 
         User user = userConverter.convertToEntity(requestDTO);
         user.setPassword(encoder.encode(user.getPassword()));
@@ -55,7 +55,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         String subject = user.getNickname() + ", confirm your profile, please";
 
         senderService.sendMessage(subject, user.getEmail(), code); //subg email message
-        redisDAO.save(user.getEmail(), code);
+        //   redisDAO.save(user.getEmail(), code);
         userDAO.save(user);
     }
 

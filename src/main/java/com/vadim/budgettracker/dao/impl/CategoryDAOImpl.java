@@ -35,7 +35,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public boolean existsByName(String name) {
-        return manager.createQuery("SELECT u FROM Catergory u WHERE u.name=:name", User.class)
+        return !manager.createQuery("SELECT u FROM Category u WHERE u.name=:name", Category.class)
                 .setParameter("name", name)
                 .getResultList().isEmpty();    }
 
@@ -62,7 +62,7 @@ public class CategoryDAOImpl implements CategoryDAO {
         if (Objects.isNull(category)) {
             return Optional.empty();
         }
-        manager.detach(category);
+        //   manager.detach(category);
         return Optional.of(category);
     }
 
