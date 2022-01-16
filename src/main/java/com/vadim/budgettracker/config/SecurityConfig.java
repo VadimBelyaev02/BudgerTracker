@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.
+                cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -60,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("*");
+   //     registry.addMapping("/**")
+   //             .allowedOrigins("http://localhost:3000")
+   //             .allowedMethods("*");
     }
 }
