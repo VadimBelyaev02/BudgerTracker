@@ -46,7 +46,7 @@ public class OperationController {
 //        return operationService.getUserOperationById(userId, operationId);
 //    }
 
-    @PostMapping(consumes = "application/json")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public OperationDTO addOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
         if (result.hasErrors()) {
