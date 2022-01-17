@@ -46,6 +46,7 @@ public class OperationController {
 //        return operationService.getUserOperationById(userId, operationId);
 //    }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public OperationDTO addOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
