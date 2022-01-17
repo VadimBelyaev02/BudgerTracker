@@ -15,32 +15,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
-public class JwtTokenFilter extends GenericFilterBean {
-
-    private final JwtTokenProvider tokenProvider;
-
-    @Autowired
-    public JwtTokenFilter(JwtTokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String token = tokenProvider.resolveToken((HttpServletRequest) servletRequest);
-
-        try {
-            if (token != null && tokenProvider.validateToken(token)) {
-                Authentication authentication = tokenProvider.getAuthentication(token);
-                if (authentication != null) {
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
-        } catch (JwtAuthenticationException e) {
-            SecurityContextHolder.clearContext();
-            ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());
-            throw new JwtAuthenticationException("JWT is expired or invalid");
-        }
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-}
+//@Component
+//public class JwtTokenFilter extends GenericFilterBean {
+//
+//    private final JwtTokenProvider tokenProvider;
+//
+//    @Autowired
+//    public JwtTokenFilter(JwtTokenProvider tokenProvider) {
+//        this.tokenProvider = tokenProvider;
+//    }
+//
+//    @Override
+//    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+//        String token = tokenProvider.resolveToken((HttpServletRequest) servletRequest);
+//
+//        try {
+//            if (token != null && tokenProvider.validateToken(token)) {
+//                Authentication authentication = tokenProvider.getAuthentication(token);
+//                if (authentication != null) {
+//                    SecurityContextHolder.getContext().setAuthentication(authentication);
+//                }
+//            }
+//        } catch (JwtAuthenticationException e) {
+//            SecurityContextHolder.clearContext();
+//            ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());
+//            throw new JwtAuthenticationException("JWT is expired or invalid");
+//        }
+//        filterChain.doFilter(servletRequest, servletResponse);
+//    }
+//}

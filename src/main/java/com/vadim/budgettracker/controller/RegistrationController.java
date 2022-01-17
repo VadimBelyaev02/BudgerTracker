@@ -19,7 +19,7 @@ public class RegistrationController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody RegistrationRequestDTO registrationDTO) {
-        registrationService.register(registrationDTO);
+        //registrationService.register(registrationDTO);
     }
 
 //    @PostMapping
@@ -35,6 +35,6 @@ public class RegistrationController {
     @PostMapping("/confirm")
     @ResponseStatus(HttpStatus.OK)
     public void confirm(@RequestParam String code) {
-        registrationService.confirm(code);
+     //   registrationService.confirm(code);
     }
 }

@@ -18,19 +18,19 @@ import javax.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthorizationController {
 
-    private final AuthorizationService authorizationService;
-
-    public AuthorizationController(AuthorizationService authorizationService) {
-        this.authorizationService = authorizationService;
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public JwtToken authorize(@Valid AuthorizationRequestDTO requestDTO, BindingResult result) {
-        if (result.hasErrors())  {
-            throw new NotValidException(result.getAllErrors().toString());
-        }
-        return authorizationService.authorize(requestDTO);
-    }
+//    private final AuthorizationService authorizationService;
+//
+//    public AuthorizationController(AuthorizationService authorizationService) {
+//        this.authorizationService = authorizationService;
+//    }
+//
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.OK)
+//    public JwtToken authorize(@Valid AuthorizationRequestDTO requestDTO, BindingResult result) {
+//        if (result.hasErrors())  {
+//            throw new NotValidException(result.getAllErrors().toString());
+//        }
+//        return authorizationService.authorize(requestDTO);
+//    }
 
 }
