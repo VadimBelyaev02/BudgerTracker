@@ -23,7 +23,8 @@ public class CategoryController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategory(@PathVariable("id") Long id) {
-        return categoryService.getById(id);
+        return new CategoryDTO();
+       // return categoryService.getById(id);
     }
 
     @GetMapping
