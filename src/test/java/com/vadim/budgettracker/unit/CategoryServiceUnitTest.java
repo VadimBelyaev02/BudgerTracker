@@ -1,11 +1,13 @@
 package com.vadim.budgettracker.unit;
 
 import com.vadim.budgettracker.dao.CategoryDAO;
+import com.vadim.budgettracker.dao.impl.CategoryDAOImpl;
 import com.vadim.budgettracker.dto.CategoryDTO;
 import com.vadim.budgettracker.dto.converter.CategoryConverter;
 import com.vadim.budgettracker.entity.Category;
 import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
+import com.vadim.budgettracker.service.CategoryService;
 import com.vadim.budgettracker.service.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -24,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-@DisplayName("UserService test")
+@DisplayName("CategoryService test")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceUnitTest {
@@ -36,7 +38,7 @@ public class CategoryServiceUnitTest {
     private CategoryConverter converter;
 
     @Mock
-    private CategoryDAO categoryDAO;
+    private CategoryDAOImpl categoryDAO;
 
     @Test
     public void Given_ServiceTriesToFindCategory_When_GetCategoryId_Then_FoundCategoryIsReturned() {
