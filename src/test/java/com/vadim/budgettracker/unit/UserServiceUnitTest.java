@@ -5,6 +5,7 @@ import com.vadim.budgettracker.dto.UserDTO;
 import com.vadim.budgettracker.dto.converter.UserConverter;
 import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.NotFoundException;
+import com.vadim.budgettracker.service.UserService;
 import com.vadim.budgettracker.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -31,7 +32,7 @@ import static org.mockito.Mockito.when;
 public class UserServiceUnitTest {
 
     @InjectMocks
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Mock
     private UserConverter userConverter;

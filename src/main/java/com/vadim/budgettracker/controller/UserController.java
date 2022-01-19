@@ -37,7 +37,7 @@ public class UserController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO updateUser(@Valid @RequestBody UserDTO userDTO, BindingResult result) {
+    public UserDTO putUser(@Valid @RequestBody UserDTO userDTO, BindingResult result) {
         if (result.hasErrors()) {
             throw new NotValidException(result.getAllErrors().toString());
         }
