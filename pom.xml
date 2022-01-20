@@ -214,7 +214,6 @@
             <version>2.5.6</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -254,6 +253,99 @@
             <artifactId>spring-aop</artifactId>
             <version>5.3.14</version>
         </dependency>
+
+
+
+
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-data-rest</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+
+
+        <!--        <dependency>-->
+    <!--            <groupId>io.swagger.core.v3</groupId>-->
+    <!--            <artifactId>swagger-annotations</artifactId>-->
+    <!--            <version>2.1.6</version>-->
+    <!--        </dependency>-->
+
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springdoc</groupId>-->
+    <!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+    <!--            <version>1.6.4</version>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>io.swagger.codegen.v3</groupId>-->
+    <!--            <artifactId>swagger-codegen-maven-plugin</artifactId>-->
+    <!--            <version>3.0.32</version>-->
+    <!--        </dependency>-->
+
+
+
+
+
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger2</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger-ui</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--        </dependency>-->
+
+
+<!--        <dependency>-->
+<!--            <groupId>io.swagger.core.v3</groupId>-->
+<!--            <artifactId>swagger-annotations</artifactId>-->
+<!--            <version>2.1.6</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+<!--            <version>1.5.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.swagger.codegen.v3</groupId>-->
+<!--            <artifactId>swagger-codegen-maven-plugin</artifactId>-->
+<!--            <version>3.0.24</version>-->
+<!--        </dependency>-->
+
+
+
+<!--        <dependency>-->
+<!--            <groupId>org.openapitools</groupId>-->
+<!--            <artifactId>jackson-databind-nullable</artifactId>-->
+<!--            <version>0.2.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger2</artifactId>-->
+<!--            <version>2.9.2</version>-->
+<!--        </dependency>-->
 
 
     </dependencies>
@@ -341,8 +433,83 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+
+
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <version>3.3.4</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <generatorName>spring</generatorName>-->
+<!--                            <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>-->
+<!--                            <output>${project.build.directory}/generated-sources</output>-->
+<!--                            <apiPackage>com.api</apiPackage>-->
+<!--                            <modelPackage>com.model</modelPackage>-->
+<!--                            <supportingFilesToGenerate>-->
+<!--                                ApiUtil.java-->
+<!--                            </supportingFilesToGenerate>-->
+<!--                            <configOptions>-->
+
+<!--                                <groupId>com.vadim</groupId>-->
+<!--                                <artifactId>BudgetTracker</artifactId>-->
+
+<!--&lt;!&ndash;                                <groupId>${project.groupId}</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <artifactId>${project.artifactId}</artifactId>&ndash;&gt;-->
+<!--                                <artifactVersion>1</artifactVersion>-->
+<!--                                <delegatePattern>true</delegatePattern>-->
+<!--                                <sourceFolder>swagger</sourceFolder>-->
+<!--                                <library>spring-mvc</library>-->
+<!--                                <interfaceOnly>true</interfaceOnly>-->
+<!--                                <useBeanValidation>true</useBeanValidation>-->
+<!--                                <dateLibrary>java8</dateLibrary>-->
+<!--                                <java8>true</java8>-->
+<!--                            </configOptions>-->
+<!--                            <ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <version>5.1.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <inputSpec>-->
+<!--                                ${project.basedir}/src/main/resources/openapi.yml-->
+<!--                            </inputSpec>-->
+<!--                            <generatorName>spring</generatorName>-->
+<!--                            <apiPackage>com.vadim.budgettracker.openapi.api</apiPackage>-->
+<!--                            <modelPackage>com.vadim.budgettracker.openapi.model</modelPackage>-->
+<!--                            <supportingFilesToGenerate>-->
+<!--                                ApiUtil.java-->
+<!--                            </supportingFilesToGenerate>-->
+<!--                            <configOptions>-->
+<!--                                <delegatePattern>true</delegatePattern>-->
+<!--                            </configOptions>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+
         </plugins>
     </build>
+
 
 
 </project>

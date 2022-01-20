@@ -15,7 +15,6 @@ import java.time.Duration;
 
 
 @Configuration
-//@EnableRedisRepositories
 public class RedisConfig {
 
     @Bean
@@ -23,14 +22,6 @@ public class RedisConfig {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
         configuration.setHostName("localhost");
         configuration.setPort(6379);
-
-
-        RedisCacheConfiguration configuration1 = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofDays(1))
-                .disableCachingNullValues();
-        // what is it?
-
-
         return new JedisConnectionFactory(configuration);
     }
 
