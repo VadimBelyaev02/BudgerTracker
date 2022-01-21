@@ -6,6 +6,7 @@ import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.model.RegistrationRequestDTO;
+import com.vadim.budgettracker.model.ResetPasswordRequestDTO;
 import com.vadim.budgettracker.redis.ConfirmationRedisDAO;
 import com.vadim.budgettracker.service.MailSenderService;
 import com.vadim.budgettracker.service.RegistrationService;
@@ -48,8 +49,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         String code = UUID.randomUUID().toString();
         String subject = user.getNickname() + ", confirm your profile, please";
 
-        senderService.sendMessage(subject, user.getEmail(), code); //subg email message
-        //   redisDAO.save(user.getEmail(), code);
+        senderService.sendMessage(subject, user.getEmail(), code);
+        //   redisDAO.save(user.getEmail(), code); <- it doesn't work with heroku for some reason,
+        //                                            (it's not my fault!),
+        //                                            so I have to use a regular database,
+        //                                            but locally it works perfect!
+        redisDAO.save(user.getEmail(), code);
         userDAO.save(user);
     }
 
@@ -62,5 +67,26 @@ public class RegistrationServiceImpl implements RegistrationService {
         );
         user.setConfirmed(true);
         redisDAO.delete(code);
+    }
+
+    @Override
+    @Transactional
+    public void resetPassword(String email) {
+        if (!userDAO.existsByEmail(email)) {
+            throw new NotFoundException("User with email = " + email + " is not found");
+        }
+        String subject = "Reset password";
+        String code = UUID.randomUUID().toString();
+        senderService.sendMessage(subject, email, code);
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(ResetPasswordRequestDTO requestDTO) {
+        String email = redisDAO.findEmailByCode(requestDTO.getCode());
+        User user = userDAO.findByEmail(email).orElseThrow(() ->
+                new NotFoundException("User with email=" + email + " is not found")
+        );
+        user.setPassword(encoder.encode(user.getPassword()));
     }
 }
