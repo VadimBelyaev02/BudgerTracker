@@ -56,6 +56,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         //                                            but locally it works perfect!
         redisDAO.save(user.getEmail(), code);
         userDAO.save(user);
+        int a;
     }
 
     @Override
