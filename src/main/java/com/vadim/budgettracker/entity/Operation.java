@@ -24,15 +24,16 @@ public class Operation {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+  //  @JoinColumn(name = "category_name", referencedColumnName = "name")
     @JoinColumn(name = "category_name")
     private Category category;
 
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
 }

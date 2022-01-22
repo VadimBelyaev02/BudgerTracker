@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/register")
+@RequestMapping("/api")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
@@ -20,13 +20,13 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody RegistrationRequestDTO registrationDTO) {
         registrationService.register(registrationDTO);
     }
 
-    @PostMapping("/confirm")
+    @PostMapping("/register/confirm")
     @ResponseStatus(HttpStatus.OK)
     public void confirm(@RequestParam String code) {
         registrationService.confirm(code);
@@ -46,4 +46,6 @@ public class RegistrationController {
         }
         registrationService.updatePassword(requestDTO);
     }
+
+
 }
