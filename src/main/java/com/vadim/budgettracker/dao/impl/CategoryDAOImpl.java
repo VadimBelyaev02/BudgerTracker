@@ -35,9 +35,13 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public boolean existsByName(String name) {
-        return !manager.createQuery("SELECT u FROM Category u WHERE u.name=:name", Category.class)
+        //manager.getTransaction().begin();
+        boolean isEmpty = !manager.createQuery("SELECT u FROM Category u WHERE u.name=:name", Category.class)
                 .setParameter("name", name)
-                .getResultList().isEmpty();    }
+                .getResultList().isEmpty();
+        //manager.getTransaction().commit();
+        return isEmpty;
+        }
 
     @Override
     public Category getByName(String name) {
