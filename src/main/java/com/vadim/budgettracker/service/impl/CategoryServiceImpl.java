@@ -47,7 +47,11 @@ public class CategoryServiceImpl implements CategoryService {
         if (categoryDAO.existsByName(categoryDTO.getName())) {
             throw new AlreadyExistsException("Category with name=" + categoryDTO.getName() + " already exists");
         }
+        // have to fix a bug that id is not null, but has to be because it can't persist it because
+        // it thinks that object had been in database, but at some moment it was detached,
+        // or something like this, can't be sure
         Category category = categoryDAO.save(categoryConverter.convertToEntity(categoryDTO));
+        category.setId(null);
         return categoryConverter.convertToDTO(category);
     }
 
