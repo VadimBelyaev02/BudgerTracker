@@ -24,19 +24,32 @@ public class MailSenderServiceImpl implements MailSenderService {
     @Override
     public void sendMessage(String subject, String email, String message) {
        // String URL = "https://budgettrackerjsonholder.herokuapp.com/api/register/confirm?code=";
-      //  String URL = "http://localhost:8080/api/register/confirm?code=";
+        String URL = "http://localhost:8080/api/register/confirm?code=";
 
-        String URL = "";
+       // String URL = "";
 
+//        String text = "<form method=\"post\" action=\"ссылка которую вставлю в коде\">\n" +
+//                "    <input type=\"submit\" value=\"Confirm\">\n" +
+//                "</form>"
 
         
         String link = URL + message;
         String text = "<html>" +
                 "<head><title>"+subject+"</title></head>" +
                 "<body>" +
-                "Click <a href=\"" + link + "\">here</a> to confirm your account." +
+                "<form method=\"post\" action=\"" + message + "\">" +
+                "<input type=\"submit\" value=\"Confirm\">" +
+                "</form>" +
                 "</body>" +
                 "</html>";
+
+
+//        String text = "<html>" +
+//                "<head><title>"+subject+"</title></head>" +
+//                "<body>" +
+//                "Click <a href=\"" + link + "\">here</a> to confirm your account." +
+//                "</body>" +
+//                "</html>";
 
         try {
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));

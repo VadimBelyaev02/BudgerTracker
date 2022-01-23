@@ -3,6 +3,7 @@ package com.vadim.budgettracker.controller;
 import com.vadim.budgettracker.dto.CategoryDTO;
 import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,10 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @Operation(
+            summary = "Get a category",
+            description = "It allows you to get a category by id in url"
+    )
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategory(@PathVariable("id") Long id) {
@@ -29,13 +34,20 @@ public class CategoryController {
        // return categoryService.getById(id);
     }
 
+    @Operation(
+            summary = "Get all categories",
+            description = "It allows you to get all categories"
+    )
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryDTO> getAllCategories() {
         return categoryService.getAll();
     }
 
-
+    @Operation(
+            summary = "Create a category",
+            description = "It allows you to add a new category"
+    )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDTO addCategory(@Valid @RequestBody CategoryDTO categoryDTO, BindingResult result) {
@@ -45,6 +57,9 @@ public class CategoryController {
         return categoryService.save(categoryDTO);
     }
 
+    @Operation(
+            summary = "Update a category"
+    )
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO updateCategory(@Valid @RequestBody CategoryDTO categoryDTO, BindingResult result) {

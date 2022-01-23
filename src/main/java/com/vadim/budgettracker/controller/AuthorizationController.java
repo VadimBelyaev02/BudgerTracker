@@ -4,6 +4,7 @@ import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.model.AuthorizationRequestDTO;
 import com.vadim.budgettracker.security.jwt.JwtToken;
 import com.vadim.budgettracker.service.AuthorizationService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,10 @@ public class AuthorizationController {
         this.authorizationService = authorizationService;
     }
 
-
+    @Operation(
+            summary = "Authorize method",
+            description = "It allows you to authorize a user"
+    )
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public JwtToken authorize(@Valid AuthorizationRequestDTO requestDTO, BindingResult result) {
