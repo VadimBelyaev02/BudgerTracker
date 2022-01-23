@@ -4,15 +4,12 @@ import com.vadim.budgettracker.dao.UserDAO;
 import com.vadim.budgettracker.dto.UserDTO;
 import com.vadim.budgettracker.dto.converter.UserConverter;
 import com.vadim.budgettracker.entity.User;
-import com.vadim.budgettracker.entity.enums.Role;
 import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

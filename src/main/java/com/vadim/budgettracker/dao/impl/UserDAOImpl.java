@@ -3,12 +3,10 @@ package com.vadim.budgettracker.dao.impl;
 import com.vadim.budgettracker.dao.UserDAO;
 import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -57,6 +55,16 @@ public class UserDAOImpl implements UserDAO {
         User user = manager.find(User.class, id);
         manager.remove(user);
         manager.getTransaction().commit();
+
+//        manager.getTransaction().begin();
+//        int isSuccessful = manager.createQuery("DELETE FROM User u WHERE u.id=:id")
+//                .setParameter("id", id)
+//                .executeUpdate();
+//        if (isSuccessful == 0) {
+//            throw new RuntimeException("Something was wrong during deleting a user");
+//        }
+//        manager.getTransaction().commit();
+
     }
 
     @Override
