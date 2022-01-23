@@ -3,6 +3,7 @@ package com.vadim.budgettracker.controller;
 import com.vadim.budgettracker.dto.OperationDTO;
 import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.service.OperationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "Operation Controller", description = "It allows you to get, update, add, delete operations")
 @RestController
 @RequestMapping("/api/operations")
 public class OperationController {
