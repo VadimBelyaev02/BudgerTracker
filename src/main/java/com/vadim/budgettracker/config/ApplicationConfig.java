@@ -1,6 +1,5 @@
 package com.vadim.budgettracker.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +15,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Objects;
 import java.util.Properties;
 

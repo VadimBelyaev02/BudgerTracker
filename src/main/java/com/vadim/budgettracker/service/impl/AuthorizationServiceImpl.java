@@ -5,7 +5,6 @@ import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.AccessDeniedException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.model.AuthorizationRequestDTO;
-import com.vadim.budgettracker.model.ResetPasswordRequestDTO;
 import com.vadim.budgettracker.security.jwt.JwtToken;
 import com.vadim.budgettracker.security.jwt.JwtTokenProvider;
 import com.vadim.budgettracker.service.AuthorizationService;
@@ -15,8 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
