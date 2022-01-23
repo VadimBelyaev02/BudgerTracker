@@ -1,6 +1,5 @@
 package com.vadim.budgettracker.dao;
 
-
 import com.vadim.budgettracker.entity.User;
 
 import java.util.Optional;

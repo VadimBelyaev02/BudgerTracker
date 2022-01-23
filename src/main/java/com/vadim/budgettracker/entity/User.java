@@ -10,6 +10,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -51,11 +52,33 @@ public class User {
     @Column(name = "mode")
     private String mode;
 
-    @OneToMany(mappedBy = "user")
-    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE})
     private List<Category> categories;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Operation> operations;
+
+    @OneToOne(mappedBy = "user")
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    private Confirmation confirmation;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", createdDate=" + createdDate +
+                ", role=" + role +
+                ", confirmed=" + confirmed +
+                ", language='" + language + '\'' +
+                ", currency='" + currency + '\'' +
+                ", mode='" + mode + '\'' +
+                ", categories=" + categories +
+                ", operations=" + operations +
+                '}';
+    }
 }

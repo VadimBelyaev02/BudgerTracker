@@ -4,8 +4,6 @@ import com.vadim.budgettracker.dto.UserDTO;
 import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.entity.enums.Role;
 import com.vadim.budgettracker.model.RegistrationRequestDTO;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
