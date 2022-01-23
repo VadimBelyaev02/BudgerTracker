@@ -50,14 +50,24 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         String code = UUID.randomUUID().toString();
         String subject = user.getNickname() + ", confirm your profile, please";
+        String message = "http://localhost:8080/api/register/confirm?code=" + code;
+        senderService.sendMessage(subject, user.getEmail(), message);
 
-        senderService.sendMessage(subject, user.getEmail(), code);
+
+
         //   redisDAO.save(user.getEmail(), code); <- it doesn't work with heroku for some reason,
         //                                            (it's not my fault!),
         //                                            so I have to use a regular database,
         //                                            but locally it works perfect!
 //        confirmationRepository.save(user.getEmail(), code);
+        Confirmation confirmation = Confirmation.builder()
+                .code(code)
+                .id(user.getId())
+                .user(user)
+                .build();
+        user.setConfirmation(confirmation);
         userDAO.save(user);
+
     }
 
     @Override
@@ -67,7 +77,6 @@ public class RegistrationServiceImpl implements RegistrationService {
                 .orElseThrow(() ->
                     new NotFoundException("Confirmation with code=" + code + " is not found")
                 );
-
         confirmation.getUser().setConfirmed(true);
         confirmationRepository.deleteByCode(code);
     }
@@ -80,6 +89,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         String subject = "Reset password";
         String code = UUID.randomUUID().toString();
+        String message = "Here is your code: " + code;
         senderService.sendMessage(subject, email, code);
     }
 

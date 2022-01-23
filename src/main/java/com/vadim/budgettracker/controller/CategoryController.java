@@ -46,7 +46,7 @@ public class CategoryController {
 
     @Operation(
             summary = "Create a category",
-            description = "It allows you to add a new category"
+            description = "It allows you to add a new category by request body"
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,7 +58,8 @@ public class CategoryController {
     }
 
     @Operation(
-            summary = "Update a category"
+            summary = "Update a category",
+            description = "It allows you to update a category by request body"
     )
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
@@ -69,6 +70,10 @@ public class CategoryController {
         return categoryService.update(categoryDTO);
     }
 
+    @Operation(
+            summary = "Delete a category",
+            description = "It allows you to delete a category by id in url"
+    )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCategory(@PathVariable("id") Long id) {
