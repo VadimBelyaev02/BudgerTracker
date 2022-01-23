@@ -3,6 +3,7 @@ package com.vadim.budgettracker.controller;
 import com.vadim.budgettracker.dto.CategoryDTO;
 import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.service.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "Category Controller", description = "It allows you to get, add, update and delete categories")
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {

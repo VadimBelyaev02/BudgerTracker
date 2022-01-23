@@ -2,13 +2,14 @@ package com.vadim.budgettracker.dao.impl;
 
 import com.vadim.budgettracker.dao.CategoryDAO;
 import com.vadim.budgettracker.entity.Category;
-import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 public class CategoryDAOImpl implements CategoryDAO {
