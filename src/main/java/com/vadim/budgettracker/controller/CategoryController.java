@@ -15,6 +15,7 @@ import java.util.List;
 @Tag(name = "Category Controller", description = "It allows you to get, add, update and delete categories")
 @RestController
 @RequestMapping("/api/categories")
+@CrossOrigin(origins="http://localhost:3000")
 public class CategoryController {
 
     private final CategoryService categoryService;
