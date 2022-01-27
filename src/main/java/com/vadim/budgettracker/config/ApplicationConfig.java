@@ -1,5 +1,6 @@
 package com.vadim.budgettracker.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,7 @@ public class ApplicationConfig {
         this.environment = environment;
     }
 
-/*   @Bean
+   @Bean
      public BasicDataSource dataSource() {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         String username = System.getenv("JDBC_DATABASE_USERNAME");
@@ -44,17 +45,17 @@ public class ApplicationConfig {
         basicDataSource.setPassword(password);
 
         return basicDataSource;
-    }*/
-
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("db.driverClassName"));
-        dataSource.setUsername(environment.getRequiredProperty("db.username"));
-        dataSource.setPassword(environment.getRequiredProperty("db.password"));
-        dataSource.setUrl(environment.getRequiredProperty("db.url"));
-        return dataSource;
     }
+
+//    @Bean
+//    public DataSource dataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(environment.getRequiredProperty("db.driverClassName"));
+//        dataSource.setUsername(environment.getRequiredProperty("db.username"));
+//        dataSource.setPassword(environment.getRequiredProperty("db.password"));
+//        dataSource.setUrl(environment.getRequiredProperty("db.url"));
+//        return dataSource;
+//    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
