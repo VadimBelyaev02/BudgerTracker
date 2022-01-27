@@ -8,21 +8,6 @@
     <artifactId>BudgetTracker</artifactId>
     <version>1</version>
 
-
-<!--    <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-dependency-plugin</artifactId>-->
-<!--        <version>3.0.1</version>-->
-<!--        <executions>-->
-<!--            <execution>-->
-<!--                <id>copy-dependencies</id>-->
-<!--                <phase>package</phase>-->
-<!--                <goals><goal>copy-dependencies</goal></goals>-->
-<!--            </execution>-->
-<!--        </executions>-->
-<!--    </plugin>-->
-<!--    -->
-
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -180,21 +165,17 @@
         <version>2.13.1</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-    <dependency>
+        <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
         <version>2.13.1</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>3.7.0</version>
         </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.vk.api/sdk -->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -254,98 +235,32 @@
             <version>5.3.14</version>
         </dependency>
 
-
-
-
-
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-data-rest</artifactId>
             <version>1.5.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.5.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
             <version>2.6.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.210</version>
+            <scope>compile</scope>
+        </dependency>
 
-        <!--        <dependency>-->
-    <!--            <groupId>io.swagger.core.v3</groupId>-->
-    <!--            <artifactId>swagger-annotations</artifactId>-->
-    <!--            <version>2.1.6</version>-->
-    <!--        </dependency>-->
-
-
-    <!--        <dependency>-->
-    <!--            <groupId>org.springdoc</groupId>-->
-    <!--            <artifactId>springdoc-openapi-ui</artifactId>-->
-    <!--            <version>1.6.4</version>-->
-    <!--        </dependency>-->
-
-    <!--        <dependency>-->
-    <!--            <groupId>io.swagger.codegen.v3</groupId>-->
-    <!--            <artifactId>swagger-codegen-maven-plugin</artifactId>-->
-    <!--            <version>3.0.32</version>-->
-    <!--        </dependency>-->
-
-
-
-
-
-
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger2</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger-ui</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
-
-
-<!--        <dependency>-->
-<!--            <groupId>io.swagger.core.v3</groupId>-->
-<!--            <artifactId>swagger-annotations</artifactId>-->
-<!--            <version>2.1.6</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
-<!--            <version>1.5.2</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.swagger.codegen.v3</groupId>-->
-<!--            <artifactId>swagger-codegen-maven-plugin</artifactId>-->
-<!--            <version>3.0.24</version>-->
-<!--        </dependency>-->
-
-
-
-<!--        <dependency>-->
-<!--            <groupId>org.openapitools</groupId>-->
-<!--            <artifactId>jackson-databind-nullable</artifactId>-->
-<!--            <version>0.2.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger2</artifactId>-->
-<!--            <version>2.9.2</version>-->
-<!--        </dependency>-->
 
 
     </dependencies>

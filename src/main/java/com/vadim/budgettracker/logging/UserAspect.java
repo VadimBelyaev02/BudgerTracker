@@ -1,6 +1,9 @@
 package com.vadim.budgettracker.logging;
 
+import com.vadim.budgettracker.controller.UserController;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -15,7 +18,13 @@ import java.util.Arrays;
 @Slf4j
 public class UserAspect {
 
-    @Pointcut("execution(* com.vadim.budgettracker.controller.UserController.getUser())")
+    private final Logger logger;
+
+    public UserAspect() {
+        logger = LogManager.getLogger(UserController.class);
+    }
+
+    @Pointcut("execution(* com.vadim.budgettracker.controller.UserController.getUser*(..))")
     private void getUser() {
 
     }
@@ -27,6 +36,7 @@ public class UserAspect {
 
     @Around("getUser()")
     public Object loggingGetUser(ProceedingJoinPoint point) {
+        System.out.println("1");
         String mArgs = Arrays.toString(point.getArgs());
         String mName = point.getSignature().getName();
         Object mObject = null;

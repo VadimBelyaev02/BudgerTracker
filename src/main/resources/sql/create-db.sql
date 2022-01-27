@@ -1,0 +1,1 @@
+create database budget_tracker_test_db;
