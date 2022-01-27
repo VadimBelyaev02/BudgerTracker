@@ -6,8 +6,10 @@ import com.vadim.budgettracker.dto.converter.UserConverter;
 import com.vadim.budgettracker.entity.Confirmation;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.service.ConfirmationService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class ConfirmationServiceImpl implements ConfirmationService {
 
     private final ConfirmationRepository confirmationRepository;
