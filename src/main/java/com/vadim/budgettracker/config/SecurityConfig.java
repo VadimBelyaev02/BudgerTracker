@@ -23,79 +23,79 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.Arrays;
 import java.util.List;
 
-//@Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
-//@EnableWebMvc
-//public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
-//
-//    private final JwtConfigurer jwtConfigurer;
-//
-//    @Autowired
-//    public SecurityConfig(JwtConfigurer jwtConfigurer) {
-//        this.jwtConfigurer = jwtConfigurer;
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .cors().configurationSource(corsConfigurationSource()).and()
-//              //  .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/register/**").permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.PUT, "/api/register/**").permitAll()
-//                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
-//                .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-//                .antMatchers(HttpMethod.GET, "/**").permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .apply(jwtConfigurer);
-//    }
-//
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder(12);
-//    }
-//
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        final CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("HEAD",
-//                "GET", "POST", "PUT", "DELETE", "PATCH"));
-//        // setAllowCredentials(true) is important, otherwise:
-//        // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request credentials mode is 'include'.
-//        configuration.setAllowCredentials(true);
-//        // setAllowedHeaders is important! Without it, OPTIONS preflight request
-//        // will fail with 403 Invalid CORS request
-//        configuration.setMaxAge(3600L);
-//        configuration.setExposedHeaders(Arrays.asList("*"));
-//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Origin"));
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-//
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-//    }
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebMvc
+public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+
+    private final JwtConfigurer jwtConfigurer;
+
+    @Autowired
+    public SecurityConfig(JwtConfigurer jwtConfigurer) {
+        this.jwtConfigurer = jwtConfigurer;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .cors().configurationSource(corsConfigurationSource()).and()
+              //  .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/register/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/register/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .apply(jwtConfigurer);
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD",
+                "GET", "POST", "PUT", "DELETE", "PATCH"));
+        // setAllowCredentials(true) is important, otherwise:
+        // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request credentials mode is 'include'.
+        configuration.setAllowCredentials(true);
+        // setAllowedHeaders is important! Without it, OPTIONS preflight request
+        // will fail with 403 Invalid CORS request
+        configuration.setMaxAge(3600L);
+        configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Origin"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+    }
 
 
 
@@ -140,7 +140,7 @@ import java.util.List;
 //                .allowCredentials(true)
 //                .maxAge(3600);
 //    }
-//}
+}
 
 /*
 
