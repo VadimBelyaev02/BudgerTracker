@@ -20,22 +20,21 @@ public class ConfirmationServiceImpl implements ConfirmationService {
         this.userConverter = userConverter;
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public UserDTO getUserByCode(String code) {
-        Confirmation confirmation = confirmationRepository.findByCode(code).orElseThrow(() -> {
-            throw new NotFoundException("Code is not found");
-        });
+        Confirmation confirmation = confirmationRepository.findByCode(code).orElseThrow(() ->
+             new NotFoundException("Code is not found")
+        );
         return userConverter.convertToDTO(confirmation.getUser());
     }
 
     @Override
     @Transactional(readOnly = true)
     public String checkCode(String code) {
-        return confirmationRepository.findByCode(code).orElseThrow(() -> {
-            throw new NotFoundException("The code is not found");
-        }).getCode();
+        return confirmationRepository.findByCode(code).orElseThrow(() ->
+            new NotFoundException("The code is not found")
+        ).getCode();
     }
 
     @Override
