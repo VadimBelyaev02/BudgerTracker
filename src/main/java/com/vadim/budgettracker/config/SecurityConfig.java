@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().configurationSource(corsConfigurationSource()).and()
+                // .cors().configurationSource(corsConfigurationSource()).and()
               //  .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/categories").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/register/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
