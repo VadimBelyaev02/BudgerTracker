@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         configuration.setExposedHeaders(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Origin"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("http://127.0.0.1:3000/", configuration);
         return source;
     }
 
