@@ -50,7 +50,15 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         String code = UUID.randomUUID().toString();
         String subject = user.getNickname() + ", confirm your profile, please";
-        String message = "http://localhost:8080/api/register/confirm?code=" + code;
+        String URL = "https://budgettrackerjsonholder.herokuapp.com/api/register/confirm?code=" + code;
+        String message = "<html>" +
+                "<head><title>"+subject+"</title></head>" +
+                "<body>" +
+                "<form method=\"post\" action=\"" + URL + "\">" +
+                "<input type=\"submit\" value=\"Confirm\">" +
+                "</form>" +
+                "</body>" +
+                "</html>";
         senderService.sendMessage(subject, user.getEmail(), message);
 
 
@@ -90,7 +98,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         String subject = "Reset password";
         String code = UUID.randomUUID().toString();
         String message = "Here is your code: " + code;
-        senderService.sendMessage(subject, email, code);
+        senderService.sendMessage(subject, email, message);
     }
 
     @Override
