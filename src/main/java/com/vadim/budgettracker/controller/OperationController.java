@@ -70,7 +70,7 @@ public class OperationController {
             summary = "Create an operation",
             description = "It allows you to add a new operation using the request body"
     )
-    @PostMapping(consumes = {"application/json"})
+    @PostMapping(consumes = {"application/json"}, produces = {"application/json"})
     @ResponseStatus(HttpStatus.CREATED)
     public OperationDTO addOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
         if (result.hasErrors()) {
