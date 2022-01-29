@@ -72,6 +72,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         return new BCryptPasswordEncoder(12);
     }
 
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080");
+//            }
+//        };
+//    }
+
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {
 //        final CorsConfiguration configuration = new CorsConfiguration();
@@ -91,13 +100,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 //        return source;
 //    }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("http://127.0.0.1:3000/")
-//                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/*")
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+                .allowedOrigins("http://localhost:3000");
+    }
 
-
+/*
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080");
+			}
+		};
+	}
+ */
 
 
 
