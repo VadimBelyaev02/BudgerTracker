@@ -50,6 +50,7 @@ public class OperationServiceImpl implements OperationService {
         // need to fix the bug that id is not null, but has to be
         Operation operation = operationRepository.save(operationConverter.convertToEntity(operationDTO));
         return operationConverter.convertToDTO(operation);
+        // need to check that category doesn't exist
     }
 
     @Override

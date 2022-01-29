@@ -6,6 +6,7 @@ import com.vadim.budgettracker.service.OperationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,7 +70,7 @@ public class OperationController {
             summary = "Create an operation",
             description = "It allows you to add a new operation using the request body"
     )
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public OperationDTO addOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
         if (result.hasErrors()) {
