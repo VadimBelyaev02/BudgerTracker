@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Operation Controller", description = "It allows you to get, update, add, delete operations")
@@ -40,7 +41,12 @@ public class OperationController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<OperationDTO> getAllOperations() {
-        return operationService.getAll();
+        OperationDTO operationDTO = new OperationDTO();
+        operationDTO.setCategoryName("да заебла работай блять");
+        List<OperationDTO> list = new ArrayList<>();
+        list.add(operationDTO);
+        return list;
+        // return operationService.getAll();
     }
 
 //    @GetMapping("/")
