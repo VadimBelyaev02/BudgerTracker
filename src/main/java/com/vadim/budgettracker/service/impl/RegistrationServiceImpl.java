@@ -61,8 +61,6 @@ public class RegistrationServiceImpl implements RegistrationService {
                 "</html>";
         senderService.sendMessage(subject, user.getEmail(), message);
 
-
-
         //   redisDAO.save(user.getEmail(), code); <- it doesn't work with heroku for some reason,
         //                                            (it's not my fault!),
         //                                            so I have to use a regular database,
