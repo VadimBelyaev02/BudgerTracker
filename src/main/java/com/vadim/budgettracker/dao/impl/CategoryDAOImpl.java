@@ -79,9 +79,20 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public Category save(Category category) {
         manager.getTransaction().begin();
+        category.setId(null);
         manager.persist(category);
         manager.getTransaction().commit();
         return category;
+
+//        manager.getTransaction().begin();
+//        int isSuccessful = manager.createQuery("DELETE FROM User u WHERE u.id=:id")
+//                .setParameter("id", id)
+//                .executeUpdate();
+//        if (isSuccessful == 0) {
+//            throw new RuntimeException("Something was wrong during deleting a user");
+//        }
+//        manager.getTransaction().commit();
+//        return category;
     }
 
     @Override
