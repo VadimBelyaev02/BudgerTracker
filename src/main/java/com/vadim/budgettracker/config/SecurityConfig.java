@@ -106,14 +106,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         registry.addMapping("/api/**")
                 .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
                 .allowedHeaders("Access-Control-Allow-Origin", "application/json")
+                .exposedHeaders("Access-Control-Allow-Origin", "application/json")
                 .allowedOrigins("http://localhost:3000")
                 ;
-
-
-
-        registry.addMapping("/api/operations/**")
-                .allowedMethods("POST")
-                .allowedOrigins("http://localhost:3000");
     }
 
 /*
