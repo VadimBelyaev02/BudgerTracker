@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.Arrays;
 import java.util.List;
 
+@EnableWebMvc
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -101,15 +102,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 //        return source;
 //    }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
-                .allowedHeaders("Access-Control-Allow-Origin", "application/json")
-                .exposedHeaders("Access-Control-Allow-Origin", "application/json")
-                .allowedOrigins("http://localhost:3000")
-                ;
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/api/**")
+//                .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
+//                .allowedHeaders("Access-Control-Allow-Origin", "application/json")
+//                .exposedHeaders("Access-Control-Allow-Origin", "application/json")
+//                .allowedOrigins("http://localhost:3000")
+//                ;
+//    }
 
 /*
 	@Bean
