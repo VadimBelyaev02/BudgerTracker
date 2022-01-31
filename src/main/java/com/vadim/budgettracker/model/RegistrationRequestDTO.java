@@ -16,7 +16,7 @@ public class RegistrationRequestDTO {
     @Email
     private String email;
 
-    @Size(min = 4, max = 15)
+    @Size(min = 4, max = 30)
     @NotBlank
     private String password;
 
