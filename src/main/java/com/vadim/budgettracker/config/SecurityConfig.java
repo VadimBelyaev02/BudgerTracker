@@ -105,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
-                .allowedHeaders("Access-Control-Allow-Origin")
+                .allowedHeaders("Access-Control-Allow-Origin", "application/json")
                 .allowedOrigins("http://localhost:3000")
                 ;
 
