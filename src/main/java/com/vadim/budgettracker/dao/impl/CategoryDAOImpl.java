@@ -80,6 +80,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     public Category save(Category category) {
         manager.getTransaction().begin();
         category.setId(null);
+        // а возвращаю нуллевой айди - плохо
         manager.persist(category);
         manager.getTransaction().commit();
         return category;

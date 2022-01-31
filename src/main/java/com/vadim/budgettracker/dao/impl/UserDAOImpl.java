@@ -44,6 +44,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User save(User user) {
         manager.getTransaction().begin();
+        // айди не должен быть нулл при создании
         user.setId(null);
         manager.persist(user);
         manager.getTransaction().commit();
