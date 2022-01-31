@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/operations/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/register/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
@@ -103,9 +104,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/*")
-                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+                .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
                 .allowedOrigins("http://localhost:3000")
                 ;
+        registry.addMapping("/api/operations/**")
+                .allowedMethods("POST")
+                .allowedOrigins("http://localhost:3000");
     }
 
 /*
