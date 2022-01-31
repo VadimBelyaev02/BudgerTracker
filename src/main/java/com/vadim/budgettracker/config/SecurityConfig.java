@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().disable()
+        http
+                //.cors().disable()
                //  .cors().configurationSource(corsConfigurationSource()).and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -102,15 +103,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 //        return source;
 //    }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/api/**")
-//                .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
-//                .allowedHeaders("Access-Control-Allow-Origin", "application/json")
-//                .exposedHeaders("Access-Control-Allow-Origin", "application/json")
-//                .allowedOrigins("http://localhost:3000")
-//                ;
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH")
+                .allowedHeaders("Access-Control-Allow-Origin", "Content-Type")
+          //      .exposedHeaders("Access-Control-Allow-Origin", "Content-Type")
+                .allowedOrigins("http://localhost:3000")
+                ;
+    }
 
 /*
 	@Bean
