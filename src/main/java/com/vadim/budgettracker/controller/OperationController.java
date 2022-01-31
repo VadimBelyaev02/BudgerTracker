@@ -70,6 +70,8 @@ public class OperationController {
             summary = "Create an operation",
             description = "It allows you to add a new operation using the request body"
     )
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping()
     //@PostMapping(consumes = {"application/json; charset=utf-8"}, produces = {"application/json"})
     @ResponseStatus(HttpStatus.CREATED)

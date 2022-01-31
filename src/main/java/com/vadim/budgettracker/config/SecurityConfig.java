@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.cors().and()
                 //.cors().disable()
                //  .cors().configurationSource(corsConfigurationSource()).and()
                 .csrf().disable()
@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedMethods("POST, GET, PUT, DELETE")
+                .allowedMethods("POST", "GET", "PUT", "DELETE")
                 .allowedHeaders("Access-Control-Allow-Origin", "Content-Type")
                 .exposedHeaders("Access-Control-Allow-Origin", "Content-Type")
                 .allowedOrigins("*")
