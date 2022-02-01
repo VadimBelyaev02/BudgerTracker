@@ -3,6 +3,7 @@ package com.vadim.budgettracker.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.vadim.budgettracker.entity.enums.Permission;
 import com.vadim.budgettracker.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +52,8 @@ public class UserDTO {
 
     @NotBlank
     private String mode;
+
+    public boolean hasPermission(Permission permission) {
+        return this.role.getPermissions().contains(permission);
+    }
 }

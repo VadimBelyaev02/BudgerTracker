@@ -1,5 +1,6 @@
 package com.vadim.budgettracker.config;
 
+import com.vadim.budgettracker.entity.enums.Permission;
 import com.vadim.budgettracker.security.jwt.JwtConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,21 +41,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 //.cors().disable()
-               //  .cors().configurationSource(corsConfigurationSource()).and()
+                //  .cors().configurationSource(corsConfigurationSource()).and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/register/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/operations/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/register/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.PUT, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
+
+                .antMatchers(HttpMethod.POST, "/api/operations/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.PUT, "/api/operations/**").hasAuthority(Permission.UPDATE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/operations").hasAuthority(Permission.DELETE.getPermission())
+
+                .antMatchers(HttpMethod.POST, "/api/register").anonymous()
+                .antMatchers(HttpMethod.PUT, "/api/register/confirm").authenticated()
+
+                .antMatchers(HttpMethod.PUT, "/api/users").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/users").hasAuthority(Permission.READ.getPermission())
+
                 .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
@@ -75,34 +82,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         return new BCryptPasswordEncoder(12);
     }
 
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080");
-//            }
-//        };
-//    }
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        final CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("HEAD",
-//                "GET", "POST", "PUT", "DELETE", "PATCH"));
-//        // setAllowCredentials(true) is important, otherwise:
-//        // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request credentials mode is 'include'.
-//        configuration.setAllowCredentials(true);
-//        // setAllowedHeaders is important! Without it, OPTIONS preflight request
-//        // will fail with 403 Invalid CORS request
-//        configuration.setMaxAge(3600L);
-//        configuration.setExposedHeaders(Arrays.asList("*"));
-//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Origin"));
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("http://127.0.0.1:3000/", configuration);
-//        return source;
-//    }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -110,92 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .allowedHeaders("Access-Control-Allow-Origin", "Content-Type")
                 .exposedHeaders("Access-Control-Allow-Origin", "Content-Type")
                 .allowedOrigins("*")
-                ;
+        ;
     }
-
-/*
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080");
-			}
-		};
-	}
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-//        configuration.setAllowCredentials(true);
-//        // the below three lines will add the relevant CORS response headers
-//        configuration.addAllowedOrigin("http://localhost:3000");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/api/categories/**")
-//                .allowedHeaders("*")
-//                .allowedOrigins("*")
-//                .allowedMethods("GET", "POST", "PUT", "DELETE")
-//                .allowCredentials(true)
-//                .maxAge(3600);
-//    }
 }
-
-/*
-
-
-package com.vadim.budgettracker.config;
-
-//import io.swagger.v3.oas.models.OpenAPI;
-//import io.swagger.v3.oas.models.info.Contact;
-//import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.servers.Server;
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
-
-@Configuration
-public class SwaggerConfig {
-
-
-
-}
-
-
-
-
- */

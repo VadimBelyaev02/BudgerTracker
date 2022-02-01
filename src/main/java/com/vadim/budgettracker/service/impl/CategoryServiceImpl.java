@@ -2,15 +2,21 @@ package com.vadim.budgettracker.service.impl;
 
 import com.vadim.budgettracker.dao.CategoryDAO;
 import com.vadim.budgettracker.dto.CategoryDTO;
+import com.vadim.budgettracker.dto.UserDTO;
 import com.vadim.budgettracker.dto.converter.CategoryConverter;
 import com.vadim.budgettracker.entity.Category;
+import com.vadim.budgettracker.entity.User;
+import com.vadim.budgettracker.entity.enums.Permission;
+import com.vadim.budgettracker.exception.AccessDeniedException;
 import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
+import com.vadim.budgettracker.security.AuthenticatedUserFactory;
 import com.vadim.budgettracker.service.CategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,10 +24,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryDAO categoryDAO;
     private final CategoryConverter categoryConverter;
+    private final AuthenticatedUserFactory factory;
 
-    public CategoryServiceImpl(CategoryDAO categoryDAO, CategoryConverter categoryConverter) {
+    public CategoryServiceImpl(CategoryDAO categoryDAO, CategoryConverter categoryConverter, AuthenticatedUserFactory factory) {
         this.categoryDAO = categoryDAO;
         this.categoryConverter = categoryConverter;
+        this.factory = factory;
     }
 
     @Override
@@ -51,7 +59,6 @@ public class CategoryServiceImpl implements CategoryService {
         // it thinks that object had been in database, but at some moment it was detached,
         // or something like this, can't be sure
         Category category = categoryDAO.save(categoryConverter.convertToEntity(categoryDTO));
-        category.setId(null);
         return categoryConverter.convertToDTO(category);
     }
 
@@ -68,8 +75,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        if (!categoryDAO.existsById(id)) {
-            throw new NotFoundException("Category with id=" + id + " is not found");
+        Category category = categoryDAO.findById(id).orElseThrow(() ->
+                new NotFoundException("Category with id=" + id + " is not found")
+        );
+        UserDTO currentUser = factory.currentUser();
+        if (Objects.equals(currentUser.getId(), category.getUserId()) &&
+                !currentUser.hasPermission(Permission.DELETE)) {
+            throw new AccessDeniedException("You can't delete someone else's category");
         }
         categoryDAO.deleteById(id);
     }

@@ -41,4 +41,8 @@ public class Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Operation> operations;
+
+    public Long getUserId() {
+        return user.getId();
+    }
 }
