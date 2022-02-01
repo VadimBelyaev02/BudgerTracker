@@ -113,5 +113,12 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter("email", email)
                 .getResultList().isEmpty();
     }
+
+    @Override
+    public boolean existByNickname(String nickname) {
+        return !manager.createQuery("SELECT u FROM User u WHERE u.nickname=:nickname",
+                        User.class)
+                .setParameter("nickname", nickname)
+                .getResultList().isEmpty();    }
 }
 

@@ -13,4 +13,6 @@ public interface UserDAO extends CrudDAO<User> {
     User getById(Long userId);
 
     boolean existsByEmail(String email);
+
+    boolean existByNickname(String nickname);
 }
