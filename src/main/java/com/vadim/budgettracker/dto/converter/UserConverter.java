@@ -73,8 +73,8 @@ public class UserConverter {
                 .confirmed(false)
                 .createdDate(LocalDate.now())
                 .mode("light")
-                .language("english")
-                .currency("USD")
+                .language("en")
+                .currency("$")
                 .build();
     }
 }
