@@ -1,1 +1,1 @@
-create database budget_tracker_test_db;
+create schema budget_tracker_test_db;
