@@ -1,5 +1,5 @@
-create table confirmation (
-                              id bigserial primary key unique not null ,
-                              code varchar(100) not null ,
-                              user_id bigint references users(id) not null
-);
+-- create table confirmation (
+--                               id bigserial primary key  ,
+--                               code varchar(100) ,
+--                               user_id bigint references users(id)
+-- );

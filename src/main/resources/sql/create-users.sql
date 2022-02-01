@@ -1,12 +1,17 @@
-create table users (
-                       id bigserial primary key unique not null ,
-                       nickname varchar(100) unique not null ,
-                       password varchar(100) not null ,
-                       email varchar(100) unique not null ,
-                       created_date date not null ,
-                       role varchar(20) not null ,
-                       confirmed boolean not null ,
-                       mode varchar(30) not null ,
-                       currency varchar(30) not null ,
-                       language varchar(50) not null
+-- create table users (
+--                        id bigserial primary key  ,
+--                        nickname varchar(100)  ,
+--                        password varchar(100) ,
+--                        email varchar(100)    ,
+--                        created_date date   ,
+--                        role varchar(20)   ,
+--                        confirmed boolean   ,
+--                        mode varchar(30)   ,
+--                        currency varchar(30)  ,
+--                        language varchar(50)
+-- );
+
+create table users_test (
+    id bigserial primary key
 );
+insert into users_test (id) values (1)

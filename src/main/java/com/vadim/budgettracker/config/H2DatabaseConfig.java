@@ -52,9 +52,9 @@ public class H2DatabaseConfig {
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:sql/create-db.sql")
                 .addScript("classpath:sql/create-users.sql")
-                .addScript("classpath:sql/create-categories.sql")
-                .addScript("classpath:sql/create-confirmations.sql")
-                .addScript("classpath:sql/create-operations.sql")
+          //      .addScript("classpath:sql/create-categories.sql")
+          //      .addScript("classpath:sql/create-confirmations.sql")
+          //      .addScript("classpath:sql/create-operations.sql")
                 .setScriptEncoding("UTF-8")
                 .ignoreFailedDrops(true)
                 .build();
