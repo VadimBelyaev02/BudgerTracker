@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean existsByEmailOrNickname(String email, String nickname) {
-        return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email and u.nickname=:nickname",
+        return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email or u.nickname=:nickname",
                         User.class)
                 .setParameter("email", email)
                 .setParameter("nickname", nickname)
