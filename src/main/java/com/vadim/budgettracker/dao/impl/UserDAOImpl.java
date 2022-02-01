@@ -78,9 +78,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
+    public boolean existsByEmailOrNickname(String email, String nickname) {
+        return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email and u.nickname=:nickname",
+                        User.class)
                 .setParameter("email", email)
+                .setParameter("nickname", nickname)
                 .getResultList().isEmpty();
     }
 
@@ -102,6 +104,14 @@ public class UserDAOImpl implements UserDAO {
             throw new NotFoundException("User with id=" + userId + " is not found");
         }
         return user;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email",
+                        User.class)
+                .setParameter("email", email)
+                .getResultList().isEmpty();
     }
 }
 

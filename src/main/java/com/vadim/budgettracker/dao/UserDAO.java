@@ -6,9 +6,11 @@ import java.util.Optional;
 
 public interface UserDAO extends CrudDAO<User> {
 
-    boolean existsByEmail(String email);
+    boolean existsByEmailOrNickname(String email, String nickname);
 
     Optional<User> findByEmail(String email);
 
     User getById(Long userId);
+
+    boolean existsByEmail(String email);
 }
