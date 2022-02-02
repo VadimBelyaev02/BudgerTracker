@@ -33,13 +33,13 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     @Transactional
     public JwtToken authorize(AuthorizationRequestDTO requestDTO) {
+        User user = userDAO.findByEmail(requestDTO.getEmail()).orElseThrow(() ->
+                new NotFoundException("User with email=" + requestDTO.getEmail() + " is not found")
+        );
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     requestDTO.getEmail(), requestDTO.getPassword()));
 
-            User user = userDAO.findByEmail(requestDTO.getEmail()).orElseThrow(() ->
-                 new NotFoundException("User with email=" + requestDTO.getEmail() + " is not found")
-            );
             if (!user.getConfirmed()) {
                 throw new AccessDeniedException("User with email=" + requestDTO.getEmail() + "is not confirmed");
             }
