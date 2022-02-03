@@ -52,6 +52,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDTO save(CategoryDTO categoryDTO) {
+        UserDTO userDTO = factory.currentUser();
+        if (!userDTO.getConfirmed()) {
+                throw new AccessDeniedException("User with email = " + userDTO.getEmail() + " is not confirmed");
+        }
         if (categoryDAO.existsByName(categoryDTO.getName())) {
             throw new AlreadyExistsException("Category with name=" + categoryDTO.getName() + " already exists");
         }

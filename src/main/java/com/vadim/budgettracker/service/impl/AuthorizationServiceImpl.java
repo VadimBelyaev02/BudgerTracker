@@ -21,13 +21,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private final AuthenticationManager authenticationManager;
     private final UserDAO userDAO;
     private final JwtTokenProvider tokenProvider;
-    private final MailSenderService senderService;
 
-    public AuthorizationServiceImpl(AuthenticationManager authenticationManager, UserDAO userDAO, JwtTokenProvider tokenProvider, MailSenderService senderService) {
+    public AuthorizationServiceImpl(AuthenticationManager authenticationManager, UserDAO userDAO, JwtTokenProvider tokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userDAO = userDAO;
         this.tokenProvider = tokenProvider;
-        this.senderService = senderService;
     }
 
     @Override
@@ -40,9 +38,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             User user = userDAO.findByEmail(requestDTO.getEmail()).orElseThrow(() ->
                  new NotFoundException("User with email = " + requestDTO.getEmail() + " is not found")
             );
-            if (!user.getConfirmed()) {
-                throw new AccessDeniedException("User with email = " + requestDTO.getEmail() + "is not confirmed");
-            }
+//            if (!user.isConfirmed()) {
+//                throw new AccessDeniedException("User with email = " + requestDTO.getEmail() + "is not confirmed");
+//            }
 
             String token = tokenProvider.createToken(requestDTO.getEmail(), user.getRole().name());
             return new JwtToken(token);

@@ -41,7 +41,7 @@ public class User {
     private Role role;
 
     @Column(name = "confirmed")
-    private Boolean confirmed;
+    private boolean confirmed;
 
     @Column(name = "language")
     private String language;
@@ -80,5 +80,13 @@ public class User {
                 ", categories=" + categories +
                 ", operations=" + operations +
                 '}';
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }

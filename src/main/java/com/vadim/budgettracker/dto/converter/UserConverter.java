@@ -42,7 +42,7 @@ public class UserConverter {
         final String nickname = user.getNickname();
         final String password = user.getPassword();
         final Role role = user.getRole();
-        final Boolean confirmed = user.getConfirmed();
+        final Boolean confirmed = user.isConfirmed();
         final String mode = user.getMode();
         final String currency = user.getCurrency();
         final String language = user.getLanguage();
