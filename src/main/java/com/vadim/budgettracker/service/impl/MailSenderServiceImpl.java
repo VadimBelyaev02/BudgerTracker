@@ -22,29 +22,25 @@ public class MailSenderServiceImpl implements MailSenderService {
     }
 
     @Override
-    public void sendMessage(String subject, String email, String message) {
-       // String URL = "https://budgettrackerjsonholder.herokuapp.com/api/register/confirm?code=";
-        String URL = "http://localhost:8080/api/register/confirm?code=";
+    public void sendButton(String subject, String email, String message) {
+        //String URL = "http://localhost:8080/api/register/confirm?code=";
 
-        String text = message;
-//                String link = URL + message;
+        String URL = "https://budgettrackerjsonholder.herokuapp.com/api/register/confirm?code=" + message;
+        String text = "<html>" +
+                "<head><title>"+subject+"</title></head>" +
+                "<body>" +
+                "<form method=\"post\" action=\"" + URL + "\">" +
+                "<input type=\"submit\" value=\"Confirm\">" +
+                "</form>" +
+                "</body>" +
+                "</html>";
+        //                String link = URL + message;
 //        String text = "<html>" +
 //                "<head><title>"+subject+"</title></head>" +
 //                "<body>" +
 //                "<p>" + message + "</p>" +
 //                "</body>" +
 //                "</html>";
-        
-//        String link = URL + message;
-//        String text = "<html>" +
-//                "<head><title>"+subject+"</title></head>" +
-//                "<body>" +
-//                "<form method=\"post\" action=\"" + message + "\">" +
-//                "<input type=\"submit\" value=\"Confirm\">" +
-//                "</form>" +
-//                "</body>" +
-//                "</html>";
-
 
 //        String text = "<html>" +
 //                "<head><title>"+subject+"</title></head>" +
@@ -58,6 +54,18 @@ public class MailSenderServiceImpl implements MailSenderService {
             mimeMessage.setSubject(subject);
             mimeMessage.setContent(text, "text/html");
         //    mimeMessage.setText(text);
+            Transport.send(mimeMessage);
+        } catch (MessagingException e) {
+            throw new MailSendingException("There was an exception during sending the message", e);
+        }
+    }
+
+    public void sendText(String subject, String email, String message) {
+        try {
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            mimeMessage.setSubject(subject);
+            mimeMessage.setText(message);
+     //       mimeMessage.setContent(text, "text/html");
             Transport.send(mimeMessage);
         } catch (MessagingException e) {
             throw new MailSendingException("There was an exception during sending the message", e);

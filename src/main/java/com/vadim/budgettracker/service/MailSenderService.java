@@ -2,5 +2,7 @@ package com.vadim.budgettracker.service;
 
 public interface MailSenderService {
 
-    void sendMessage(String subject, String email, String code);
+    void sendButton(String subject, String email, String code);
+
+    void sendText(String subject, String email, String code);
 }

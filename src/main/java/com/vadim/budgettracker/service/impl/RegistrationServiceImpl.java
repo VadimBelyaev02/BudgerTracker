@@ -45,6 +45,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void register(RegistrationRequestDTO requestDTO) {
         User user = userConverter.convertToEntity(requestDTO);
         user.setPassword(encoder.encode(user.getPassword()));
+        if (userDAO.existsByEmailOrNickname(user.getEmail(), user.getNickname())) {
+            throw new AlreadyExistsException("User with email =" + user.getEmail() + " and nickname = " + user.getNickname());
+        }
         if (userDAO.existsByEmail(user.getEmail())) {
             throw new AlreadyExistsException("User with email = " + requestDTO.getEmail() + " already exists");
         }
@@ -53,16 +56,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         String code = UUID.randomUUID().toString();
         String subject = user.getNickname() + ", confirm your profile, please";
-        String URL = "https://budgettrackerjsonholder.herokuapp.com/api/register/confirm?code=" + code;
-        String message = "<html>" +
-                "<head><title>"+subject+"</title></head>" +
-                "<body>" +
-                "<form method=\"post\" action=\"" + URL + "\">" +
-                "<input type=\"submit\" value=\"Confirm\">" +
-                "</form>" +
-                "</body>" +
-                "</html>";
-        senderService.sendMessage(subject, user.getEmail(), message);
+
+        senderService.sendButton(subject, user.getEmail(), code);
 
         //   redisDAO.save(user.getEmail(), code); <- it doesn't work with heroku for some reason,
         //                                            (it's not my fault!),
@@ -99,7 +94,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         String subject = "Reset password";
         String code = UUID.randomUUID().toString();
         String message = "Here is your code: " + code;
-        senderService.sendMessage(subject, email, message);
+        senderService.sendText(subject, email, message);
     }
 
     @Override
