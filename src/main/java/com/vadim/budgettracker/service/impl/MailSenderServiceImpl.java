@@ -64,8 +64,8 @@ public class MailSenderServiceImpl implements MailSenderService {
         try {
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             mimeMessage.setSubject(subject);
-            mimeMessage.setText(message);
-     //       mimeMessage.setContent(text, "text/html");
+           // mimeMessage.setText(message);
+            mimeMessage.setContent(message, "text/html");
             Transport.send(mimeMessage);
         } catch (MessagingException e) {
             throw new MailSendingException("There was an exception during sending the message", e);
