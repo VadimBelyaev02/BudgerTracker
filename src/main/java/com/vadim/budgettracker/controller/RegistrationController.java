@@ -52,7 +52,7 @@ public class RegistrationController {
     )
     @PostMapping("/forgot_password")
     @ResponseStatus(HttpStatus.OK)
-    public void forgotPassword(@RequestParam String email) {
+    public void forgotPassword(@RequestBody String email) {
         registrationService.resetPassword(email);
     }
 
