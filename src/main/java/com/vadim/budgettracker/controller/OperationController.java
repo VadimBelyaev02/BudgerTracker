@@ -45,7 +45,7 @@ public class OperationController {
 
     @GetMapping("/users/{userId}/operations")
     @ResponseStatus(HttpStatus.OK)
-    public List<OperationDTO> getAllUserOperations(@RequestParam("userId") Long userId) {
+    public List<OperationDTO> getAllUserOperations(@PathVariable("userId") Long userId) {
         return operationService.getAllByUserId(userId);
     }
 
