@@ -13,6 +13,7 @@ import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.security.AuthenticatedUserFactory;
 import com.vadim.budgettracker.service.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
+    @Transactional()
     public CategoryDTO save(CategoryDTO categoryDTO) {
         UserDTO userDTO = factory.currentUser();
         if (!userDTO.getConfirmed()) {
@@ -88,5 +89,12 @@ public class CategoryServiceImpl implements CategoryService {
             throw new AccessDeniedException("You can't delete someone else's category");
         }
         categoryDAO.deleteById(id);
+    }
+
+    @Override
+    public List<CategoryDTO> getAllByUserId(Long userId) {
+        return categoryDAO.findAllByUserId(userId).stream()
+                .map(categoryConverter::convertToDTO)
+                .collect(Collectors.toList());
     }
 }

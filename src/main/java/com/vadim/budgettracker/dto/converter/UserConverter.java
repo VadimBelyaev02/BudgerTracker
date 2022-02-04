@@ -60,11 +60,11 @@ public class UserConverter {
         final String language = user.getLanguage();
         final LocalDate createdDate = user.getCreatedDate();
 
-        final List<CategoryDTO> categoryDTOS = user.getCategories().stream()
-                .map(categoryConverter::convertToDTO).collect(Collectors.toList());
+       // final List<CategoryDTO> categoryDTOS = user.getCategories().stream()
+       //         .map(categoryConverter::convertToDTO).collect(Collectors.toList());
 
-        final List<OperationDTO> operationDTOS = user.getOperations().stream()
-                .map(operationConverter::convertToDTO).collect(Collectors.toList());
+      //  final List<OperationDTO> operationDTOS = user.getOperations().stream()
+      //          .map(operationConverter::convertToDTO).collect(Collectors.toList());
 
         return UserDTO.builder()
                 .id(id)
@@ -77,8 +77,8 @@ public class UserConverter {
                 .mode(mode)
                 .currency(currency)
                 .language(language)
-                .categories(categoryDTOS)
-                .operations(operationDTOS)
+             //   .categories(categoryDTOS)
+             //   .operations(operationDTOS)
                 .build();
     }
 

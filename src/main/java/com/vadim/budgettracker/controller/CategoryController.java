@@ -14,7 +14,7 @@ import java.util.List;
 
 @Tag(name = "Category Controller", description = "It allows you to get, add, update and delete categories")
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -27,7 +27,7 @@ public class CategoryController {
             summary = "Get a category",
             description = "It allows you to get a category by id in url"
     )
-    @GetMapping("/{id}")
+    @GetMapping("/categories/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategory(@PathVariable("id") Long id) {
         return categoryService.getById(id);
@@ -37,25 +37,27 @@ public class CategoryController {
             summary = "Get all categories",
             description = "It allows you to get all categories"
     )
-    @GetMapping
+    @GetMapping("/categories")
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryDTO> getAllCategories() {
         return categoryService.getAll();
     }
 
-//    @Operation(
-//            summary = "Get all user's categories",
-//            description = "It allows you to get all categories by user's id"
-//    )
-//    public List<CategoryDTO> getAllUserCategories {
-//
-//    }
+    @Operation(
+            summary = "Get all user's categories",
+            description = "It allows you to get all categories by user's id"
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/users/{userId}/categories")
+    public List<CategoryDTO> getAllUserCategories(@PathVariable("userId") Long userId) {
+        return categoryService.getAllByUserId(userId);
+    }
 
     @Operation(
             summary = "Create a category",
             description = "It allows you to add a new category by request body"
     )
-    @PostMapping
+    @PostMapping("/categories")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDTO addCategory(@Valid @RequestBody CategoryDTO categoryDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -68,7 +70,7 @@ public class CategoryController {
             summary = "Update a category",
             description = "It allows you to update a category by request body"
     )
-    @PutMapping
+    @PutMapping("/categories")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO updateCategory(@Valid @RequestBody CategoryDTO categoryDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -81,7 +83,7 @@ public class CategoryController {
             summary = "Delete a category",
             description = "It allows you to delete a category by id in url"
     )
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/categories/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCategory(@PathVariable("id") Long id) {
         categoryService.deleteById(id);

@@ -54,9 +54,9 @@ public class UserDTO {
     @NotBlank
     private String mode;
 
-    private List<CategoryDTO> categories;
+//    private List<CategoryDTO> categories;
 
-    private List<OperationDTO> operations;
+//    private List<OperationDTO> operations;
 
     public boolean hasPermission(Permission permission) {
         return this.role.getPermissions().contains(permission);

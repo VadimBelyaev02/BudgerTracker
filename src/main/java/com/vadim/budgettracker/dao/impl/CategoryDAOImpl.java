@@ -22,7 +22,9 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public List<Category> findAllByUserId(Long userId) {
-        return null;
+        return manager.createQuery("SELECT u FROM Category u WHERE u.user.id=:user_id", Category.class)
+                .setParameter("user_id", userId)
+                .getResultList();
     }
 
     @Override
@@ -36,12 +38,9 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public boolean existsByName(String name) {
-        //manager.getTransaction().begin();
-        boolean isEmpty = !manager.createQuery("SELECT u FROM Category u WHERE u.name=:name", Category.class)
+        return !manager.createQuery("SELECT u FROM Category u WHERE u.name=:name", Category.class)
                 .setParameter("name", name)
                 .getResultList().isEmpty();
-        //manager.getTransaction().commit();
-        return isEmpty;
         }
 
     @Override
@@ -80,8 +79,6 @@ public class CategoryDAOImpl implements CategoryDAO {
     public Category save(Category category) {
         manager.getTransaction().begin();
         category.setId(null);
-        
-        // а возвращаю нуллевой айди - плохо
         manager.persist(category);
         manager.getTransaction().commit();
         return category;
