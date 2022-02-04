@@ -52,7 +52,7 @@ public class User {
     @Column(name = "mode")
     private String mode;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.MERGE})
     private List<Category> categories;
 
