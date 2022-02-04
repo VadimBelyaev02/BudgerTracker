@@ -30,4 +30,5 @@ public class CategoryDTO {
 
     @NotNull
     private Long userId;
+
 }

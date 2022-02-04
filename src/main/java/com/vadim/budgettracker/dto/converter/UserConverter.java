@@ -1,5 +1,7 @@
 package com.vadim.budgettracker.dto.converter;
 
+import com.vadim.budgettracker.dto.CategoryDTO;
+import com.vadim.budgettracker.dto.OperationDTO;
 import com.vadim.budgettracker.dto.UserDTO;
 import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.entity.enums.Role;
@@ -7,9 +9,19 @@ import com.vadim.budgettracker.model.RegistrationRequestDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserConverter {
+
+    private final CategoryConverter categoryConverter;
+    private final OperationConverter operationConverter;
+
+    public UserConverter(CategoryConverter categoryConverter, OperationConverter operationConverter) {
+        this.categoryConverter = categoryConverter;
+        this.operationConverter = operationConverter;
+    }
 
     public User convertToEntity(UserDTO userDTO) {
         final Long id = userDTO.getId();
@@ -47,6 +59,13 @@ public class UserConverter {
         final String currency = user.getCurrency();
         final String language = user.getLanguage();
         final LocalDate createdDate = user.getCreatedDate();
+
+        final List<CategoryDTO> categoryDTOS = user.getCategories().stream()
+                .map(categoryConverter::convertToDTO).collect(Collectors.toList());
+
+        final List<OperationDTO> operationDTOS = user.getOperations().stream()
+                .map(operationConverter::convertToDTO).collect(Collectors.toList());
+
         return UserDTO.builder()
                 .id(id)
                 .role(role)
@@ -58,6 +77,8 @@ public class UserConverter {
                 .mode(mode)
                 .currency(currency)
                 .language(language)
+                .categories(categoryDTOS)
+                .operations(operationDTOS)
                 .build();
     }
 

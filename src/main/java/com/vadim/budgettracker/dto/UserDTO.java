@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -52,6 +53,10 @@ public class UserDTO {
 
     @NotBlank
     private String mode;
+
+    private List<CategoryDTO> categories;
+
+    private List<OperationDTO> operations;
 
     public boolean hasPermission(Permission permission) {
         return this.role.getPermissions().contains(permission);

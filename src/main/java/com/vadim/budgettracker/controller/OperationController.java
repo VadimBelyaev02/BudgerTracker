@@ -42,14 +42,7 @@ public class OperationController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<OperationDTO> getAllOperations() {
-//        OperationDTO operationDTO = new OperationDTO();
-//        operationDTO.setCategoryName("да заебла работай блять");
-//        List<OperationDTO> list = new ArrayList<>();
-//        list.add(operationDTO);
-        List<OperationDTO> operationDTOS = operationService.getAll();
-        operationDTOS.get(0).setCategoryName("если ты видишь эту надпись, значит работает блядина");
-        return operationDTOS;
-        // return operationService.getAll();
+         return operationService.getAll();
     }
 
 //    @GetMapping("/")
