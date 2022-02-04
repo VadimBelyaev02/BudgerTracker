@@ -34,20 +34,6 @@ public class MailSenderServiceImpl implements MailSenderService {
                 "</form>" +
                 "</body>" +
                 "</html>";
-        //                String link = URL + message;
-//        String text = "<html>" +
-//                "<head><title>"+subject+"</title></head>" +
-//                "<body>" +
-//                "<p>" + message + "</p>" +
-//                "</body>" +
-//                "</html>";
-
-//        String text = "<html>" +
-//                "<head><title>"+subject+"</title></head>" +
-//                "<body>" +
-//                "Click <a href=\"" + link + "\">here</a> to confirm your account." +
-//                "</body>" +
-//                "</html>";
 
         try {
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));

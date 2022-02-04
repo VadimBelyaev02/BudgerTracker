@@ -43,7 +43,14 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
-    //  @CrossOrigin(origins = "http://localhost:3000") // <---------
+//    @Operation(
+//            summary = "Get all user's categories",
+//            description = "It allows you to get all categories by user's id"
+//    )
+//    public List<CategoryDTO> getAllUserCategories {
+//
+//    }
+
     @Operation(
             summary = "Create a category",
             description = "It allows you to add a new category by request body"

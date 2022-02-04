@@ -8,4 +8,7 @@ public class JwtToken {
 
     @JsonProperty("token")
     private String token;
+
+    @JsonProperty("userId")
+    private Long userId;
 }

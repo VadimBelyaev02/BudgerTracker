@@ -66,7 +66,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 //        confirmationRepository.save(user.getEmail(), code);
         Confirmation confirmation = Confirmation.builder()
                 .code(code)
-                .id(user.getId())
                 .user(user)
                 .build();
         user.setConfirmation(confirmation);
@@ -88,12 +87,17 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public void resetPassword(String email) {
-        if (!userDAO.existsByEmail(email)) {
-            throw new NotFoundException("User with email = " + email + " is not found");
-        }
+        User user = userDAO.findByEmail(email).orElseThrow(() ->
+          new NotFoundException("User with email = " + email + " is not found")
+        );
         String subject = "Reset password";
         String code = UUID.randomUUID().toString();
         String message = "Here is your code: " + code;
+        Confirmation confirmation = Confirmation.builder()
+                .code(code)
+                .user(user)
+                .build();
+        confirmationRepository.save(confirmation);
         senderService.sendText(subject, email, message);
     }
 
@@ -105,7 +109,16 @@ public class RegistrationServiceImpl implements RegistrationService {
                         new NotFoundException("Confirmation with code=" + requestDTO.getCode() + " is not found")
                         )
                 );
-        confirmation.getUser().setPassword(encoder.encode(requestDTO.getNewPassword()));
+        // may be find user by id instead of confirmation.getUser();
+        User user = confirmation.getUser();
+        user.setConfirmation(null);
+        user.setPassword(encoder.encode(requestDTO.getNewPassword()));
+        // may be User user = confirmation.getUser(). user.setConfirmatino(null)
+        // need to fix cascade type like it has to update user's password when I set it in the confirmation
+        userDAO.update(user);
+     //   confirmationRepository.delete(confirmation);
+       // confirmationRepository.deleteById(confirmation.getId());
+        // it doesn't delete the code from db!
     }
 }
 

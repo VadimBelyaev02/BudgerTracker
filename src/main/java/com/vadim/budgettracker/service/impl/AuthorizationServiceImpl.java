@@ -38,13 +38,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     requestDTO.getEmail(), requestDTO.getPassword()));
 
-
-//            if (!user.isConfirmed()) {
-//                throw new AccessDeniedException("User with email = " + requestDTO.getEmail() + "is not confirmed");
-//            }
-
+            Long userId = user.getId();
             String token = tokenProvider.createToken(requestDTO.getEmail(), user.getRole().name());
-            return new JwtToken(token);
+            return new JwtToken(token, userId);
         } catch (AuthenticationException e) {
             throw new AccessDeniedException("Invalid email or password", e);
         }

@@ -24,8 +24,7 @@ public class Confirmation {
     private String code;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-    org.hibernate.annotations.CascadeType.PERSIST})
+    @Cascade({org.hibernate.annotations.CascadeType.REFRESH}) // <- mb wrong
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }
