@@ -16,7 +16,7 @@ import java.util.List;
 
 @Tag(name = "Operation Controller", description = "It allows you to get, update, add, delete operations")
 @RestController
-@RequestMapping("/api/operations")
+@RequestMapping("/api")
 public class OperationController {
 
     private final OperationService operationService;
@@ -29,27 +29,25 @@ public class OperationController {
             summary = "Get an operation",
             description = "It allows you to get an operation by id"
     )
-    @GetMapping("/{id}")
+    @GetMapping("/operations/{id}")
     @ResponseStatus(HttpStatus.OK)
     public OperationDTO getOperation(@PathVariable("id") Long id) {
         return operationService.getById(id);
     }
 
-    @Operation(
-            summary = "Get all operation",
-            description = "It allows you to get all operations"
-    )
-    @GetMapping
+    @Operation(summary = "Get all operation",
+            description = "It allows you to get all operations")
+    @GetMapping("/operations")
     @ResponseStatus(HttpStatus.OK)
     public List<OperationDTO> getAllOperations() {
          return operationService.getAll();
     }
 
-//    @GetMapping("/")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<OperationDTO> getAllUserOperations(@RequestParam("userId") Long userId) {
-//        return operationService.getAllByUserId(userId);
-//    }
+    @GetMapping("/users/{userId}/operations")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OperationDTO> getAllUserOperations(@RequestParam("userId") Long userId) {
+        return operationService.getAllByUserId(userId);
+    }
 
    // @GetMapping("/{userId}/{operationId}")
 //    @GetMapping
@@ -65,8 +63,7 @@ public class OperationController {
     )
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping()
-    //@PostMapping(consumes = {"application/json; charset=utf-8"}, produces = {"application/json"})
+    @PostMapping("/operations")
     @ResponseStatus(HttpStatus.CREATED)
     public OperationDTO addOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -79,7 +76,7 @@ public class OperationController {
             summary = "Update an operation",
             description = "It allows you to update an operation using the request body"
     )
-    @PutMapping
+    @PutMapping("/operations")
     @ResponseStatus(HttpStatus.OK)
     public OperationDTO updateOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -92,7 +89,7 @@ public class OperationController {
             summary = "Delete an operation",
             description = "It allows you to delete an operation by id in the url"
     )
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/operations/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteOperation(@PathVariable("id") Long id) {
         operationService.deleteById(id);
