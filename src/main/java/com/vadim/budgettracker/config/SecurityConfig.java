@@ -46,26 +46,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-//                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
-//                .antMatchers(HttpMethod.PUT, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
-//                .antMatchers(HttpMethod.DELETE, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
-//
-//                .antMatchers(HttpMethod.POST, "/api/operations/**").hasAuthority(Permission.READ.getPermission())
-//                .antMatchers(HttpMethod.PUT, "/api/operations/**").hasAuthority(Permission.UPDATE.getPermission())
-//                .antMatchers(HttpMethod.DELETE, "/api/operations").hasAuthority(Permission.DELETE.getPermission())
-//
-//                .antMatchers(HttpMethod.POST, "/api/register").anonymous()
-//                .antMatchers(HttpMethod.PUT, "/api/register/confirm").authenticated()
-//
-//                .antMatchers(HttpMethod.PUT, "/api/users").hasAuthority(Permission.READ.getPermission())
-//                .antMatchers(HttpMethod.DELETE, "/api/users").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
 
-                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.PUT, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/categories/**").hasAuthority(Permission.READ.getPermission())
 
+                .antMatchers(HttpMethod.POST, "/api/operations/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.PUT, "/api/operations/**").hasAuthority(Permission.UPDATE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/operations").hasAuthority(Permission.DELETE.getPermission())
+
+                .antMatchers(HttpMethod.POST, "/api/register").anonymous()
+                .antMatchers(HttpMethod.PUT, "/api/register/confirm").authenticated()
+
+                .antMatchers(HttpMethod.PUT, "/api/users").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/api/users").hasAuthority(Permission.READ.getPermission())
+
+//                .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+//                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+//
                 .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
