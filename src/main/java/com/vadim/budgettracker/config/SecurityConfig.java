@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers(HttpMethod.POST, "/api/register").anonymous()
                 .antMatchers(HttpMethod.PUT, "/api/register/confirm").authenticated()
 
+                .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/users").hasAuthority(Permission.READ.getPermission())
                 .antMatchers(HttpMethod.DELETE, "/api/users").hasAuthority(Permission.READ.getPermission())
 
@@ -70,7 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 //
                 .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
