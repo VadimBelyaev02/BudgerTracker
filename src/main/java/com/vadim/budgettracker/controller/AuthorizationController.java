@@ -2,6 +2,7 @@ package com.vadim.budgettracker.controller;
 
 import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.model.AuthorizationRequestDTO;
+import com.vadim.budgettracker.model.ChangePasswordRequestDTO;
 import com.vadim.budgettracker.security.jwt.JwtToken;
 import com.vadim.budgettracker.service.AuthorizationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,4 +36,6 @@ public class AuthorizationController {
         }
         return authorizationService.authorize(requestDTO);
     }
+
+
 }

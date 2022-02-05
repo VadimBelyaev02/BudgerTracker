@@ -2,14 +2,17 @@ package com.vadim.budgettracker.service.impl;
 
 import com.vadim.budgettracker.dao.ConfirmationRepository;
 import com.vadim.budgettracker.dao.UserDAO;
+import com.vadim.budgettracker.dto.UserDTO;
 import com.vadim.budgettracker.dto.converter.UserConverter;
 import com.vadim.budgettracker.entity.Confirmation;
 import com.vadim.budgettracker.entity.User;
+import com.vadim.budgettracker.exception.AccessDeniedException;
 import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
+import com.vadim.budgettracker.model.ChangePasswordRequestDTO;
 import com.vadim.budgettracker.model.RegistrationRequestDTO;
 import com.vadim.budgettracker.model.ResetPasswordRequestDTO;
-import com.vadim.budgettracker.redis.ConfirmationRedisDAO;
+import com.vadim.budgettracker.security.AuthenticatedUserFactory;
 import com.vadim.budgettracker.service.MailSenderService;
 import com.vadim.budgettracker.service.RegistrationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,17 +29,19 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final ConfirmationRepository confirmationRepository;
     private final UserConverter userConverter;
     private final PasswordEncoder encoder;
+    private final AuthenticatedUserFactory factory;
 
     public RegistrationServiceImpl(MailSenderService senderService,
                                    UserDAO userDAO,
-                                   ConfirmationRedisDAO redisDAO,
-                                   ConfirmationRepository confirmationRepository, UserConverter userConverter,
-                                   PasswordEncoder encoder) {
+                                   ConfirmationRepository confirmationRepository,
+                                   UserConverter userConverter,
+                                   PasswordEncoder encoder, AuthenticatedUserFactory factory) {
         this.senderService = senderService;
         this.userDAO = userDAO;
         this.confirmationRepository = confirmationRepository;
         this.userConverter = userConverter;
         this.encoder = encoder;
+        this.factory = factory;
     }
 
 
@@ -120,7 +125,29 @@ public class RegistrationServiceImpl implements RegistrationService {
        // confirmationRepository.deleteById(confirmation.getId());
         // it doesn't delete the code from db!
     }
+
+    @Override
+    @Transactional
+    public void changePassword(ChangePasswordRequestDTO requestDTO) {
+        UserDTO userDTO = factory.currentUser();
+        User user = userDAO.findByEmail(userDTO.getEmail()).orElseThrow(() ->
+                new NotFoundException("User with email = " + userDTO.getEmail() + " is not found"));
+        if (!encoder.matches(requestDTO.getOldPassword(), userDTO.getPassword())) {
+            throw new AccessDeniedException("Invalid password");
+        }
+        user.setPassword(encoder.encode(requestDTO.getNewPassword()));
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
 /*
 @Service

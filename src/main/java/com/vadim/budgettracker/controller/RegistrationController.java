@@ -1,6 +1,7 @@
 package com.vadim.budgettracker.controller;
 
 import com.vadim.budgettracker.exception.NotValidException;
+import com.vadim.budgettracker.model.ChangePasswordRequestDTO;
 import com.vadim.budgettracker.model.RegistrationRequestDTO;
 import com.vadim.budgettracker.model.ResetPasswordRequestDTO;
 import com.vadim.budgettracker.service.RegistrationService;
@@ -60,7 +61,7 @@ public class RegistrationController {
             summary = "Reset a password",
             description = "It allows you to reset you password by the code from email message"
     )
-    @PutMapping("/reset")
+    @PutMapping("/reset_password")
     @ResponseStatus(HttpStatus.OK)
     public void resetPassword(@Valid @RequestBody ResetPasswordRequestDTO requestDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -69,5 +70,16 @@ public class RegistrationController {
         registrationService.updatePassword(requestDTO);
     }
 
-
+    @Operation(
+            summary = "Change a password",
+            description = "It allows you to change your password by authentication, old and new passwords"
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/change_password")
+    public void changePassword(@Valid @RequestBody ChangePasswordRequestDTO requestDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new NotValidException(result.getAllErrors().toString());
+        }
+        registrationService.changePassword(requestDTO);
+    }
 }
