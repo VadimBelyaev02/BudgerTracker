@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
         if (!userDAO.existsByEmail(userDTO.getEmail())) {
             throw new NotFoundException("User with email=" + userDTO.getEmail() + " is not found");
         }
-        // need to check that a new username doesn't exist in db. and check
+        // need to check that a new username doesn't exist in db
         return userConverter.convertToDTO(userDAO.update(userConverter.convertToEntity(userDTO)));
     }
 
