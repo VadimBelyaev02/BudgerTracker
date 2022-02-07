@@ -71,9 +71,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User update(User user) {
-        manager.getTransaction().begin();
+        // manager.getTransaction().begin();
+        // it can't update because password is null.
+        User userFromDB = manager.find(User.class, user.getId());
+        user.setPassword(userFromDB.getPassword()); // it's захардкодил
         user = manager.merge(user);
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
         return user;
     }
 
