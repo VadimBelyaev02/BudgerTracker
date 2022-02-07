@@ -18,9 +18,6 @@ public class ResetPasswordRequestDTO {
     @NotBlank
     private String code;
 
-//    @Email
-//    private String email;
-
     @NotBlank
     @Size(min = 4, max = 15)
     private String newPassword;
