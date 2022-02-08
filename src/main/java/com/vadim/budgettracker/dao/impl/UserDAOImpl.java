@@ -53,19 +53,19 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteById(Long id) {
-        manager.getTransaction().begin();
-        User user = manager.find(User.class, id);
-        manager.remove(user);
-        manager.getTransaction().commit();
-
 //        manager.getTransaction().begin();
-//        int isSuccessful = manager.createQuery("DELETE FROM User u WHERE u.id=:id")
-//                .setParameter("id", id)
-//                .executeUpdate();
-//        if (isSuccessful == 0) {
-//            throw new RuntimeException("Something was wrong during deleting a user");
-//        }
+//        User user = manager.find(User.class, id);
+//        manager.remove(user);
 //        manager.getTransaction().commit();
+
+        manager.getTransaction().begin();
+        int isSuccessful = manager.createQuery("DELETE FROM User u WHERE u.id=:id")
+                .setParameter("id", id)
+                .executeUpdate();
+        if (isSuccessful == 0) {
+            throw new RuntimeException("Something was wrong during deleting a user");
+        }
+        manager.getTransaction().commit();
 
     }
 
