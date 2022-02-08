@@ -13,7 +13,6 @@ public class ChangePasswordRequestDTO {
     @NotBlank
     private String oldPassword;
 
-
     @Size(min = 4, max = 30)
     @NotBlank
     private String newPassword;
