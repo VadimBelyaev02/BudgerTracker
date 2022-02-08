@@ -61,7 +61,8 @@ public class User {
     private List<Operation> operations;
 
     @OneToOne(mappedBy = "user")
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @Cascade({org.hibernate.annotations.CascadeType.PERSIST,
+    org.hibernate.annotations.CascadeType.REMOVE})
     private Confirmation confirmation;
 
     @Override
