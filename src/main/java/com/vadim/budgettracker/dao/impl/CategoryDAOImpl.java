@@ -2,6 +2,7 @@ package com.vadim.budgettracker.dao.impl;
 
 import com.vadim.budgettracker.dao.CategoryDAO;
 import com.vadim.budgettracker.entity.Category;
+import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -104,9 +105,9 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public Category update(Category category) {
-        manager.getTransaction().begin();
+    //    manager.getTransaction().begin();
         category = manager.merge(category);
-        manager.getTransaction().commit();
+    //    manager.getTransaction().commit();
         return category;
     }
 }
