@@ -45,4 +45,15 @@ public class Category {
     public Long getUserId() {
         return user.getId();
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", section='" + section + '\'' +
+                ", color='" + color + '\'' +
+                ", logo='" + logo + '\'' +
+                '}';
+    }
 }
