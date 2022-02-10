@@ -52,15 +52,16 @@ public class User {
     @Column(name = "mode")
     private String mode;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @Cascade({org.hibernate.annotations.CascadeType.MERGE})
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    //@Cascade({org.hibernate.annotations.CascadeType.MERGE})
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Category> categories;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Operation> operations;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     @Cascade({org.hibernate.annotations.CascadeType.PERSIST,
     org.hibernate.annotations.CascadeType.REMOVE})
     private Confirmation confirmation;
@@ -78,8 +79,6 @@ public class User {
                 ", language='" + language + '\'' +
                 ", currency='" + currency + '\'' +
                 ", mode='" + mode + '\'' +
-                ", categories=" + categories +
-                ", operations=" + operations +
                 '}';
     }
 
