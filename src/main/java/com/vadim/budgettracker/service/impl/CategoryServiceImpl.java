@@ -92,6 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public List<CategoryDTO> getAllByUserId(Long userId) {
         return categoryDAO.findAllByUserId(userId).stream()
                 .map(categoryConverter::convertToDTO)

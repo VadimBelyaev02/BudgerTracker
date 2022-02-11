@@ -26,7 +26,7 @@ public class Operation {
 
     @ManyToOne(fetch = FetchType.EAGER)
   //  @JoinColumn(name = "category_name", referencedColumnName = "name")
-    @JoinColumn(name = "category_name")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(name = "created_date")
