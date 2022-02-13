@@ -33,7 +33,7 @@ public class ApplicationConfig {
         this.environment = environment;
     }
 
-   @Bean
+     @Bean
      public BasicDataSource dataSource() {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         String username = System.getenv("JDBC_DATABASE_USERNAME");
