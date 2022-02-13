@@ -87,6 +87,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 );
         confirmation.getUser().setConfirmed(true);
         confirmationRepository.deleteByCode(code);
+
     }
 
     @Override

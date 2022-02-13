@@ -4,6 +4,7 @@ import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.model.ChangePasswordRequestDTO;
 import com.vadim.budgettracker.model.RegistrationRequestDTO;
 import com.vadim.budgettracker.model.ResetPasswordRequestDTO;
+import com.vadim.budgettracker.service.ConfirmationService;
 import com.vadim.budgettracker.service.RegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,9 +20,11 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final RegistrationService registrationService;
+    private final ConfirmationService confirmationService;
 
-    public RegistrationController(RegistrationService registrationService) {
+    public RegistrationController(RegistrationService registrationService, ConfirmationService confirmationService) {
         this.registrationService = registrationService;
+        this.confirmationService = confirmationService;
     }
 
     @Operation(
@@ -45,6 +48,7 @@ public class RegistrationController {
     @ResponseStatus(HttpStatus.OK)
     public void confirm(@RequestParam String code) {
         registrationService.confirm(code);
+      //  confirmationService.deleteByCode(code);
     }
 
     @Operation(

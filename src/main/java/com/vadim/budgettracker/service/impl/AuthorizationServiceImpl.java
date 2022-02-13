@@ -3,12 +3,14 @@ package com.vadim.budgettracker.service.impl;
 import com.vadim.budgettracker.dao.UserDAO;
 import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.AccessDeniedException;
+import com.vadim.budgettracker.exception.JwtAuthenticationException;
 import com.vadim.budgettracker.exception.NotFoundException;
 import com.vadim.budgettracker.model.AuthorizationRequestDTO;
 import com.vadim.budgettracker.security.jwt.JwtToken;
 import com.vadim.budgettracker.security.jwt.JwtTokenProvider;
 import com.vadim.budgettracker.service.AuthorizationService;
 import com.vadim.budgettracker.service.MailSenderService;
+import io.jsonwebtoken.Jwt;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -41,10 +43,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             Long userId = user.getId();
             String token = tokenProvider.createToken(requestDTO.getEmail(), user.getRole().name());
             return new JwtToken(token, userId);
-        } catch (AuthenticationException e) {
+        } catch (JwtAuthenticationException e) {
             throw new AccessDeniedException("Invalid email or password", e);
         }
-
     }
 
 
