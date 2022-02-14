@@ -70,12 +70,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDTO update(CategoryDTO categoryDTO) {
-        if (!categoryDAO.existsById(categoryDTO.getId())) {
-            throw new NotFoundException("Category with id = " + categoryDTO.getId() + " is not found");
+        Category categoryFromDB = categoryDAO.findById(categoryDTO.getId()).orElseThrow(() ->
+                new NotFoundException("")
+        );
+        if (categoryDTO.getName().equals(categoryFromDB.getName())
+                && !categoryDTO.getId().equals(categoryFromDB.getId())) {
+            throw new AlreadyExistsException("");
         }
-        if (categoryDAO.existsByName(categoryDTO.getName())) {
-            throw new AlreadyExistsException("Category with name = " + categoryDTO.getName() + " already exists");
-        }
+//        if (!categoryDAO.existsById(categoryDTO.getId())) {
+//            throw new NotFoundException("Category with id = " + categoryDTO.getId() + " is not found");
+//        }
+//        if (categoryDAO.existsByName(categoryDTO.getName())) {
+//            throw new AlreadyExistsException("Category with name = " + categoryDTO.getName() + " already exists");
+//        }
         Category category = categoryDAO.update(categoryConverter.convertToEntity(categoryDTO));
         return categoryConverter.convertToDTO(category);
     }
