@@ -119,6 +119,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 );
         // may be find user by id instead of confirmation.getUser();
         User user = confirmation.getUser();
+        confirmation.getUser().setConfirmation(null);
         user.setConfirmation(null);
         user.setPassword(encoder.encode(requestDTO.getNewPassword()));
         // may be User user = confirmation.getUser(). user.setConfirmatino(null)
