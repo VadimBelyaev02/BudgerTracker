@@ -23,7 +23,7 @@ public class Confirmation {
     @Column(name = "code")
     private String code;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }

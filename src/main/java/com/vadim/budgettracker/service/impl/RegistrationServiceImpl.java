@@ -81,20 +81,20 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public void confirm(String code) {
-            Confirmation confirmation = confirmationRepository.findByCode(code)
-                    .orElseThrow(() ->
+        Confirmation confirmation = confirmationRepository.findByCode(code)
+                .orElseThrow(() ->
                         new NotFoundException("Confirmation with code=" + code + " is not found")
-                    );
-            confirmation.getUser().setConfirmed(true);
-            confirmationRepository.deleteByCode(code);
-
+                );
+        confirmation.getUser().setConfirmed(true);
+        confirmation.setUser(null);
+        confirmationRepository.deleteByCode(code);
     }
 
     @Override
     @Transactional
     public void resetPassword(String email) {
         User user = userDAO.findByEmail(email).orElseThrow(() ->
-          new NotFoundException("User with email = " + email + " is not found")
+                new NotFoundException("User with email = " + email + " is not found")
         );
         String subject = "Reset password";
         String code = UUID.randomUUID().toString();
@@ -112,7 +112,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void updatePassword(ResetPasswordRequestDTO requestDTO) {
         Confirmation confirmation = confirmationRepository.findByCode(requestDTO.getCode())
                 .orElseThrow(() -> (
-                        new NotFoundException("Confirmation with code=" + requestDTO.getCode() + " is not found")
+                                new NotFoundException("Confirmation with code=" + requestDTO.getCode() + " is not found")
                         )
                 );
         // may be find user by id instead of confirmation.getUser();
@@ -122,8 +122,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         // may be User user = confirmation.getUser(). user.setConfirmatino(null)
         // need to fix cascade type like it has to update user's password when I set it in the confirmation
         userDAO.update(user);
-     //   confirmationRepository.delete(confirmation);
-       // confirmationRepository.deleteById(confirmation.getId());
+        //   confirmationRepository.delete(confirmation);
+        // confirmationRepository.deleteById(confirmation.getId());
         // it doesn't delete the code from db!
     }
 
