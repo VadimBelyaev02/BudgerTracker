@@ -61,8 +61,8 @@ public class User {
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Operation> operations;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)//, cascade = CascadeType.ALL)
-//    @Cascade({org.hibernate.annotations.CascadeType.PERSIST,
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+ //   @Cascade({org.hibernate.annotations.CascadeType.PERSIST})
 //    org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private Confirmation confirmation;
 
