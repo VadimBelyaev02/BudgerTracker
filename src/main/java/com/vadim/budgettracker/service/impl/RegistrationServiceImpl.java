@@ -86,7 +86,9 @@ public class RegistrationServiceImpl implements RegistrationService {
                         new NotFoundException("Confirmation with code=" + code + " is not found")
                 );
         confirmation.getUser().setConfirmed(true);
+        confirmation.getUser().setConfirmation(null);
         confirmation.setUser(null);
+
         confirmationRepository.deleteByCode(code);
     }
 
