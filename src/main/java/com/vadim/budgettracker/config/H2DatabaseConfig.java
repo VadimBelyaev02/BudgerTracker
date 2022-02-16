@@ -15,57 +15,58 @@ import javax.sql.DataSource;
 @Configuration
 @PropertySource("classpath:properties/db.properties")
 public class H2DatabaseConfig {
-//
-//    private final Environment environment;
-//
-//    public H2DatabaseConfig(Environment environment) {
-//        this.environment = environment;
-//    }
-//
-////    @Bean(name = "h2DataSource")
-////    public DataSource dataSource() {
-////        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-////        dataSource.setDriverClassName(environment.getRequiredProperty("db.h2.DriverClassName"));
-////        dataSource.setUsername(environment.getRequiredProperty("db.h2.username"));
-////        dataSource.setPassword(environment.getRequiredProperty("db.h2.password"));
-////        dataSource.setUrl(environment.getRequiredProperty("db.h2.url"));
-////        return dataSource;
-////    }
-//
-////    @Bean
-////    public DataSource dataSource(
-////            @Value("${datasource.dbname}") String dbname,
-////            @Value("${datasource.script}") String script) {
-////
-////        return new EmbeddedDatabaseBuilder()
-////                .setType(EmbeddedDatabaseType.H2)
-////                .setName(dbname)
-////                .addScript(script)
-////                .build();
-////    }
-//
-//    @Bean(name = "h2TestDataSource")
+
+    private final Environment environment;
+
+    public H2DatabaseConfig(Environment environment) {
+        this.environment = environment;
+    }
+
+//    @Bean(name = "h2DataSource")
 //    public DataSource dataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(environment.getRequiredProperty("db.h2.DriverClassName"));
+//        dataSource.setUsername(environment.getRequiredProperty("db.h2.username"));
+//        dataSource.setPassword(environment.getRequiredProperty("db.h2.password"));
+//        dataSource.setUrl(environment.getRequiredProperty("db.h2.url"));
+//        return dataSource;
+//    }
+
+//    @Bean
+//    public DataSource dataSource(
+//            @Value("${datasource.dbname}") String dbname,
+//            @Value("${datasource.script}") String script) {
+//
 //        return new EmbeddedDatabaseBuilder()
-//                .generateUniqueName(false)
-//                .setName("testdb")
 //                .setType(EmbeddedDatabaseType.H2)
-//                .addScript("classpath:sql/create-db.sql")
-//                .addScript("classpath:sql/create-users.sql")
-//          //      .addScript("classpath:sql/create-categories.sql")
-//          //      .addScript("classpath:sql/create-confirmations.sql")
-//          //      .addScript("classpath:sql/create-operations.sql")
-//                .setScriptEncoding("UTF-8")
-//                .ignoreFailedDrops(true)
+//                .setName(dbname)
+//                .addScript(script)
 //                .build();
 //    }
-//    /*
-//    jdbc.driverClassName=org.h2.Driver
-//jdbc.url=jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
-//
-//hibernate.dialect=org.hibernate.dialect.H2Dialect
-//hibernate.hbm2ddl.auto=create
-//     */
+
+    @Bean(name = "h2TestDataSource")
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .generateUniqueName(false)
+                .setName("testdb")
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("classpath:sql/create-db.sql")
+                .addScript("classpath:sql/create-users.sql")
+          //      .addScript("classpath:sql/create-categories.sql")
+          //      .addScript("classpath:sql/create-confirmations.sql")
+          //      .addScript("classpath:sql/create-operations.sql")
+                .setScriptEncoding("UTF-8")
+                .ignoreFailedDrops(true)
+                .build();
+    }
+    /*
+    jdbc.driverClassName=org.h2.Driver
+jdbc.url=jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+
+hibernate.dialect=org.hibernate.dialect.H2Dialect
+hibernate.hbm2ddl.auto=create
+     */
+
 
 
 

@@ -50,7 +50,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void register(RegistrationRequestDTO requestDTO) {
         User user = userConverter.convertToEntity(requestDTO);
         user.setPassword(encoder.encode(user.getPassword()));
-        if (userDAO.existsByEmailOrNickname(user.getEmail(), user.getNickname())) {
+        if (userDAO.existsByEmailAndNickname(user.getEmail(), user.getNickname())) {
             throw new AlreadyExistsException("User with email =" + user.getEmail() + " and nickname = " + user.getNickname());
         }
         if (userDAO.existsByEmail(user.getEmail())) {
@@ -81,12 +81,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public void confirm(String code) {
-        Confirmation confirmation = confirmationRepository.findByCode(code)
-                .orElseThrow(() ->
-                    new NotFoundException("Confirmation with code=" + code + " is not found")
-                );
-        confirmation.getUser().setConfirmed(true);
-        confirmationRepository.deleteByCode(code);
+            Confirmation confirmation = confirmationRepository.findByCode(code)
+                    .orElseThrow(() ->
+                        new NotFoundException("Confirmation with code=" + code + " is not found")
+                    );
+            confirmation.getUser().setConfirmed(true);
+            confirmationRepository.deleteByCode(code);
 
     }
 

@@ -44,7 +44,6 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User save(User user) {
         manager.getTransaction().begin();
-        // айди не должен быть нулл при создании
         user.setId(null);
         manager.persist(user);
         manager.getTransaction().commit();
@@ -57,31 +56,20 @@ public class UserDAOImpl implements UserDAO {
         User user = manager.find(User.class, id);
         manager.remove(user);
         manager.getTransaction().commit();
-
-//        manager.getTransaction().begin();
-//        int isSuccessful = manager.createQuery("DELETE FROM User u WHERE u.id=:id")
-//                .setParameter("id", id)
-//                .executeUpdate();
-//        if (isSuccessful == 0) {
-//            throw new RuntimeException("Something was wrong during deleting a user");
-//        }
-//        manager.getTransaction().commit();
-
     }
 
     @Override
     public User update(User user) {
-         manager.getTransaction().begin();
-        // it can't update because password is null.
+        manager.getTransaction().begin();
         User userFromDB = manager.find(User.class, user.getId());
-        user.setPassword(userFromDB.getPassword()); // it's захардкодил
+        user.setPassword(userFromDB.getPassword());
         user = manager.merge(user);
         manager.getTransaction().commit();
         return user;
     }
 
     @Override
-    public boolean existsByEmailOrNickname(String email, String nickname) {
+    public boolean existsByEmailAndNickname(String email, String nickname) {
         return !manager.createQuery("SELECT u FROM User u WHERE u.email=:email or u.nickname=:nickname",
                         User.class)
                 .setParameter("email", email)

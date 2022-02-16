@@ -67,7 +67,6 @@ public class CategoryDAOImpl implements CategoryDAO {
         if (Objects.isNull(category)) {
             return Optional.empty();
         }
-        //   manager.detach(category);
         return Optional.of(category);
     }
 
@@ -83,16 +82,6 @@ public class CategoryDAOImpl implements CategoryDAO {
         manager.persist(category);
         manager.getTransaction().commit();
         return category;
-
-//        manager.getTransaction().begin();
-//        int isSuccessful = manager.createQuery("DELETE FROM User u WHERE u.id=:id")
-//                .setParameter("id", id)
-//                .executeUpdate();
-//        if (isSuccessful == 0) {
-//            throw new RuntimeException("Something was wrong during deleting a user");
-//        }
-//        manager.getTransaction().commit();
-//        return category;
     }
 
     @Override
@@ -105,9 +94,9 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public Category update(Category category) {
-    //    manager.getTransaction().begin();
+        manager.getTransaction().begin();
         category = manager.merge(category);
-    //    manager.getTransaction().commit();
+        manager.getTransaction().commit();
         return category;
     }
 }

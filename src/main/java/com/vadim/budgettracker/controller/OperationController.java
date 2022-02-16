@@ -6,12 +6,10 @@ import com.vadim.budgettracker.service.OperationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Operation Controller", description = "It allows you to get, update, add, delete operations")
@@ -48,14 +46,6 @@ public class OperationController {
     public List<OperationDTO> getAllUserOperations(@PathVariable("userId") Long userId) {
         return operationService.getAllByUserId(userId);
     }
-
-   // @GetMapping("/{userId}/{operationId}")
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public OperationDTO getUserOperation(@RequestParam("userId") Long userId,
-//                                               @RequestParam("operationId") Long operationId) {
-//        return operationService.getUserOperationById(userId, operationId);
-//    }
 
     @Operation(
             summary = "Create an operation",
@@ -94,5 +84,4 @@ public class OperationController {
     public void deleteOperation(@PathVariable("id") Long id) {
         operationService.deleteById(id);
     }
-
 }

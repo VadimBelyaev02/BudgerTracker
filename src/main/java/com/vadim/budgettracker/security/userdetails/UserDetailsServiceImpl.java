@@ -1,6 +1,5 @@
 package com.vadim.budgettracker.security.userdetails;
 
-
 import com.vadim.budgettracker.dao.UserDAO;
 import com.vadim.budgettracker.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

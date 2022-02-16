@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,10 +66,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDTO update(UserDTO userDTO) {
-        if (!userDAO.existsByEmail(userDTO.getEmail())) {
-            throw new NotFoundException("User with email=" + userDTO.getEmail() + " is not found");
+        User user = userDAO.findByEmail(userDTO.getEmail()).orElseThrow(() ->
+                new NotFoundException("User with email=" + userDTO.getEmail() + " is not found")
+        );
+        if (!Objects.equals(userDTO.getNickname(), user.getNickname())) {
+            throw new AlreadyExistsException("User with email=" + userDTO.getEmail() + " already exists");
         }
-        // need to check that a new username doesn't exist in db
         return userConverter.convertToDTO(userDAO.update(userConverter.convertToEntity(userDTO)));
     }
 

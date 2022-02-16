@@ -49,16 +49,3 @@ public class CategoryConverter {
                 .build();
     }
 }
-/*
-    @Enumerated(value = EnumType.STRING)
-    private Section section;
-
-    @NotBlank
-    private String color;
-
-    @NotBlank
-    private String logo;
-
-    @NotNull
-    private Long userId;
- */
