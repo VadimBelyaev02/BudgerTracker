@@ -29,7 +29,7 @@ public class UserDTO {
     @NotBlank
     private String nickname;
 
-    @JsonIgnore
+ //   @JsonIgnore
     private String password;
 
     @Email

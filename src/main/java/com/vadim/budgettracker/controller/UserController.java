@@ -1,6 +1,7 @@
 package com.vadim.budgettracker.controller;
 
 import com.vadim.budgettracker.dto.UserDTO;
+import com.vadim.budgettracker.entity.User;
 import com.vadim.budgettracker.exception.NotValidException;
 import com.vadim.budgettracker.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,30 +25,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(
-            summary = "Get a user",
-            description = "It allows you to get a user by id in url"
-    )
+    @Operation(description = "It allows you to get a user by id in url")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO getUser(@PathVariable("id") Long id) {
         return userService.getById(id);
     }
 
-    @Operation(
-            summary = "Get all users",
-            description = "It allows you to get all users"
-    )
+    @Operation(description = "It allows you to get all users")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDTO> getAllUsers() {
         return userService.getAll();
     }
 
-    @Operation(
-            summary = "Update a user",
-            description = "It allows you to update a user using the request body"
-    )
+    @Operation(description = "It allows you to add a new user using the request body")
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UserDTO addUser(@Valid @RequestBody UserDTO userDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            throw new NotValidException(result.getAllErrors().toString());
+        }
+        return userService.save(userDTO);
+    }
+
+    @Operation(description = "It allows you to update a user using the request body")
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDTO updateUser(@Valid @RequestBody UserDTO userDTO, BindingResult result) {
@@ -57,10 +59,7 @@ public class UserController {
         return userService.update(userDTO);
     }
 
-    @Operation(
-            summary = "Delete a user",
-            description = "It allows you to delete a user by id in url"
-    )
+    @Operation(description = "It allows you to delete a user by id in url")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable("id") Long id) {
