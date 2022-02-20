@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 public class UserServiceUnitTest {
 
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Mock
     private UserConverter userConverter;
@@ -157,11 +157,16 @@ public class UserServiceUnitTest {
         verify(userConverter, Mockito.times(1)).convertToDTO(user);
         verify(userDAO, Mockito.times(1)).update(user);
         verify(userConverter, Mockito.times(1)).convertToEntity(userDTO);
-    }/*
-        public UserDTO update(UserDTO userDTO) {
-        if (!userDAO.existsByEmail(userDTO.getEmail())) {
-            throw new NotFoundException("User with email=" + userDTO.getEmail() + " is not found");
+    }
+    /*
+      public UserDTO update(UserDTO userDTO) {
+        User user = userDAO.findByEmail(userDTO.getEmail()).orElseThrow(() ->
+                new NotFoundException("User with email=" + userDTO.getEmail() + " is not found")
+        );
+        if (!Objects.equals(userDTO.getNickname(), user.getNickname())) {
+            throw new AlreadyExistsException("User with email=" + userDTO.getEmail() + " already exists");
         }
         return userConverter.convertToDTO(userDAO.update(userConverter.convertToEntity(userDTO)));
-    }*/
+    }
+     */
 }

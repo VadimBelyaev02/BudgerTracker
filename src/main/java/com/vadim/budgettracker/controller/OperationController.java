@@ -34,7 +34,8 @@ public class OperationController {
     }
 
     @Operation(summary = "Get all operation",
-            description = "It allows you to get all operations")
+            description = "It allows you to get all operations"
+    )
     @GetMapping("/operations")
     @ResponseStatus(HttpStatus.OK)
     public List<OperationDTO> getAllOperations() {
@@ -51,8 +52,6 @@ public class OperationController {
             summary = "Create an operation",
             description = "It allows you to add a new operation using the request body"
     )
-
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/operations")
     @ResponseStatus(HttpStatus.CREATED)
     public OperationDTO addOperation(@Valid @RequestBody OperationDTO operationDTO, BindingResult result) {
