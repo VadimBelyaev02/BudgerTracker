@@ -117,17 +117,11 @@ public class RegistrationServiceImpl implements RegistrationService {
                                 new NotFoundException("Confirmation with code=" + requestDTO.getCode() + " is not found")
                         )
                 );
-        // may be find user by id instead of confirmation.getUser();
         User user = confirmation.getUser();
         confirmation.getUser().setConfirmation(null);
         user.setConfirmation(null);
         user.setPassword(encoder.encode(requestDTO.getNewPassword()));
-        // may be User user = confirmation.getUser(). user.setConfirmatino(null)
-        // need to fix cascade type like it has to update user's password when I set it in the confirmation
         userDAO.update(user);
-        //   confirmationRepository.delete(confirmation);
-        // confirmationRepository.deleteById(confirmation.getId());
-        // it doesn't delete the code from db!
     }
 
     @Override

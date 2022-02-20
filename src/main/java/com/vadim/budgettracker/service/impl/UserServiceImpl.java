@@ -69,9 +69,13 @@ public class UserServiceImpl implements UserService {
         User user = userDAO.findByEmail(userDTO.getEmail()).orElseThrow(() ->
                 new NotFoundException("User with email=" + userDTO.getEmail() + " is not found")
         );
-        if (!Objects.equals(userDTO.getNickname(), user.getNickname())) {
-            throw new AlreadyExistsException("User with email=" + userDTO.getEmail() + " already exists");
+        if (!Objects.equals(userDTO.getNickname(), user.getNickname())
+                && userDAO.existByNickname(userDTO.getNickname())) {
+            throw new AlreadyExistsException("User with nickname = " + userDTO.getNickname() + " already exists");
         }
+//        if (!Objects.equals(userDTO.getNickname(), user.getNickname())) {
+//            throw new AlreadyExistsException("User with email=" + userDTO.getEmail() + " already exists");
+//        }
         return userConverter.convertToDTO(userDAO.update(userConverter.convertToEntity(userDTO)));
     }
 

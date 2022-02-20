@@ -23,8 +23,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DisplayName("UserService test")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -55,8 +54,8 @@ public class UserServiceUnitTest {
 
         assertEquals(userService.getById(id), userDTO);
 
-        verify(userDAO, Mockito.only()).findById(id);
-        verify(userConverter, Mockito.only()).convertToDTO(user);
+        verify(userDAO, only()).findById(id);
+        verify(userConverter, only()).convertToDTO(user);
     }
 
     @Test
@@ -76,7 +75,7 @@ public class UserServiceUnitTest {
 
         assertEquals(userService.getAll(), userDTOS);
 
-        verify(userDAO, Mockito.only()).findAll();
+        verify(userDAO, only()).findAll();
         verify(userConverter, Mockito.times(2)).convertToDTO(user);
     }
 
@@ -93,8 +92,8 @@ public class UserServiceUnitTest {
 
         assertEquals(userService.getByEmail(email), userDTO);
 
-        verify(userDAO, Mockito.only()).findByEmail(email);
-        verify(userConverter, Mockito.only()).convertToDTO(user);
+        verify(userDAO, only()).findByEmail(email);
+        verify(userConverter, only()).convertToDTO(user);
     }
 
     @Test
@@ -108,7 +107,7 @@ public class UserServiceUnitTest {
 
         assertThrows(NotFoundException.class, () -> userService.getById(id));
 
-        verify(userDAO, Mockito.only()).findById(id);
+        verify(userDAO, only()).findById(id);
         verify(userConverter, Mockito.never()).convertToDTO(user);
     }
 
@@ -119,12 +118,13 @@ public class UserServiceUnitTest {
         userDTO.setEmail(email);
         User user = new User();
 
-        when(userDAO.existsByEmail(email)).thenReturn(false);
+        when(userDAO.findByEmail(email)).thenReturn(Optional.empty());
+
 
         assertThrows(NotFoundException.class, () -> userService.update(userDTO));
 
-        verify(userDAO, Mockito.only()).existsByEmail(email);
-        verify(userConverter, Mockito.never()).convertToDTO(user);
+        verify(userDAO, only()).findByEmail(email);
+        verify(userConverter, never()).convertToDTO(user);
     }
 
     @Test
@@ -135,7 +135,7 @@ public class UserServiceUnitTest {
 
         assertThrows(NotFoundException.class, () -> userService.deleteById(id));
 
-        verify(userDAO, Mockito.only()).existsById(id);
+        verify(userDAO, only()).existsById(id);
         verify(userDAO, Mockito.never()).deleteById(id);
     }
 
@@ -146,27 +146,16 @@ public class UserServiceUnitTest {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(email);
 
-        when(userDAO.existsByEmail(email)).thenReturn(true);
+        when(userDAO.findByEmail(email)).thenReturn(Optional.of(user));
         when(userConverter.convertToDTO(user)).thenReturn(userDTO);
         when(userConverter.convertToEntity(userDTO)).thenReturn(user);
         when(userDAO.update(user)).thenReturn(user);
 
         assertEquals(userService.update(userDTO), userDTO);
 
-        verify(userDAO, Mockito.times(1)).existsByEmail(email);
+        verify(userDAO, Mockito.times(1)).findByEmail(email);
         verify(userConverter, Mockito.times(1)).convertToDTO(user);
         verify(userDAO, Mockito.times(1)).update(user);
         verify(userConverter, Mockito.times(1)).convertToEntity(userDTO);
     }
-    /*
-      public UserDTO update(UserDTO userDTO) {
-        User user = userDAO.findByEmail(userDTO.getEmail()).orElseThrow(() ->
-                new NotFoundException("User with email=" + userDTO.getEmail() + " is not found")
-        );
-        if (!Objects.equals(userDTO.getNickname(), user.getNickname())) {
-            throw new AlreadyExistsException("User with email=" + userDTO.getEmail() + " already exists");
-        }
-        return userConverter.convertToDTO(userDAO.update(userConverter.convertToEntity(userDTO)));
-    }
-     */
 }
