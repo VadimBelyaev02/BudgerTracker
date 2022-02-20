@@ -1,10 +1,8 @@
 package com.vadim.budgettracker.unit;
 
 import com.vadim.budgettracker.dao.OperationRepository;
-import com.vadim.budgettracker.dto.CategoryDTO;
 import com.vadim.budgettracker.dto.OperationDTO;
 import com.vadim.budgettracker.dto.converter.OperationConverter;
-import com.vadim.budgettracker.entity.Category;
 import com.vadim.budgettracker.entity.Operation;
 import com.vadim.budgettracker.exception.AlreadyExistsException;
 import com.vadim.budgettracker.exception.NotFoundException;
@@ -22,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @DisplayName("UserService test")

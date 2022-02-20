@@ -68,7 +68,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         //                                            (it's not my fault!),
         //                                            so I have to use a regular database,
         //                                            but locally it works perfect!
-//        confirmationRepository.save(user.getEmail(), code);
         Confirmation confirmation = Confirmation.builder()
                 .code(code)
                 .user(user)
