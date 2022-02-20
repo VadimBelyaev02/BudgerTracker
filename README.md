@@ -1,5 +1,5 @@
 # BudgetTracker
 
-This project I wrote with my friend. He made front-end.
+This project I wrote with my friend. He made front-end.\n
 You can loot at the site here: https://budgettracker-olivertears.vercel.app
 
