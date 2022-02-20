@@ -25,8 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration(value = "src/main/java/com/vadim/budgettracker")
 public class OperationIntegrationTest {
 
-    private final String url = "http://localhost:8080/spring-mvc-test";
-
     @Autowired
     private WebApplicationContext context;
 
