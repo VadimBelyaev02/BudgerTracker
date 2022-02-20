@@ -4,6 +4,6 @@ info:
   description: It's a simple description in order to understand how it works :)
   contact:
     name: Vadim
-    url: https://github.com/VadimBelyaev02
+    url: https://budgettrackerjsonholder.herokuapp.com/
     email: vadimbelaev002@gmail.com
   version: 1.1.0
