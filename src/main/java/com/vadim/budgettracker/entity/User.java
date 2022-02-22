@@ -53,7 +53,6 @@ public class User {
     private String mode;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    //@Cascade({org.hibernate.annotations.CascadeType.MERGE})
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Category> categories;
 
