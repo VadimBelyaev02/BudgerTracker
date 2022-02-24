@@ -3,7 +3,6 @@ package com.vadim.budgettracker.integration;
 import com.vadim.budgettracker.TestConfig;
 import com.vadim.budgettracker.config.ApplicationInit;
 import com.vadim.budgettracker.dto.UserDTO;
-import com.vadim.budgettracker.entity.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,19 +13,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
-
-import java.time.LocalDate;
+import java.util.Random;
 
 import static com.vadim.budgettracker.EntitiesFactory.getUserDTO;
 import static com.vadim.budgettracker.Mapper.toJson;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -72,75 +70,50 @@ public class UserIntegrationTest {
     @Test
     public void givenUserDto_whenPostRequest_thenReturnSavedUser() throws Exception {
         UserDTO userDTO = getUserDTO();
-        mvc.perform(post(ENDPOINT).contentType(MediaType.APPLICATION_JSON).content(toJson(userDTO)))
+        this.mvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON)
+                        .content(toJson(userDTO)))
                 .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.nickname").value(userDTO.getNickname()));
+
     }
 
     @Test
     public void givenUserId_whenGetRequest_thenReturnUserById() throws Exception {
         Long id = 1L;
-        MvcResult result = mvc.perform(get(ENDPOINT + "/{id}"))
+        mvc.perform(get(ENDPOINT + "/{id}", id))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
-                .andReturn();
-
+                .andExpect(jsonPath("$.id").value(id));
     }
 
     @Test
-    public void givenHomePageURI_whenMockMVC_thenReturnsIndexJSPViewName() throws Exception {
-
-        UserDTO userDTO = new UserDTO();
-        Long id = 32432L;
-        userDTO.setId(id);
-        userDTO.setEmail("dfgzxcvzxbbcvb@gmail.com");
-        userDTO.setNickname("sdfwwwws");
-        userDTO.setConfirmed(true);
-        userDTO.setRole(Role.ADMIN);
-        userDTO.setCreatedDate(LocalDate.now());
-        userDTO.setCurrency("sddfg");
-        userDTO.setLanguage("eng");
-        userDTO.setPassword("eroitueroitum");
-        userDTO.setMode("light");
-
-        System.out.println(toJson(userDTO));
-
-        this.mvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON)
+    public void givenUserDTO_whenTryingToUpdate_thenReturnNewUser() throws Exception {
+        UserDTO userDTO = getUserDTO();
+        Random random = new Random();
+        String newNickname = String.valueOf(random.nextDouble());
+        userDTO.setNickname(newNickname);
+        this.mvc.perform(put(ENDPOINT).contentType(MediaType.APPLICATION_JSON)
                         .content(toJson(userDTO)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.nickname").value(newNickname))
+                .andExpect(jsonPath("$.id").value(userDTO.getId()))
+                .andExpect(jsonPath("$.email").value(userDTO.getEmail()));
+    }
 
-
-        this.mvc.perform(get("/api/users"))
+    @Test
+    public void givenUserId_whenTryingToDelete_returnNoContent() throws Exception {
+        Long id = 1L;
+        this.mvc.perform(delete(ENDPOINT + "/{id}", id))
                 .andDo(print())
+                .andExpect(status().isNoContent())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
-    @Test
-    public void dfg() throws Exception {
 
-        this.mvc.perform(post("/api/users").contentType(MediaType.APPLICATION_XML))
-                .andDo(print())
-                .andExpect(status().isUnsupportedMediaType());
-    }
-
-    @Test
-    public void Given_UserDTO_When_TryingToSave_Then_ReturnCreatedUser() throws Exception {
-        UserDTO userDTO = new UserDTO();
-        Long id = 1L;
-
-        userDTO.setEmail("dfg@gmail.com");
-        userDTO.setNickname("sdfs");
-
-        this.mvc.perform(post("/api/users").contentType(MediaType.APPLICATION_JSON)
-                        .content(userDTO.toString().getBytes()))
-                .andDo(print())
-                .andExpect(status().isUnsupportedMediaType())
-                .andExpect(content().contentType("application/json;charset=UTF-8"));
-    }
 
 }
