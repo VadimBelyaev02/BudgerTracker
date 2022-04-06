@@ -4,7 +4,7 @@ import com.vadim.budgettracker.entity.Category;
 
 import java.util.List;
 
-public interface CategoryDAO extends CrudDAO<Category> {
+public interface CategoryDAO extends CrudDAO<Category, Long> {
 
     List<Category> findAllByUserId(Long userId);
 

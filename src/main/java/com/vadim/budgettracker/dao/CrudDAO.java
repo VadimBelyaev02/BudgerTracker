@@ -3,17 +3,17 @@ package com.vadim.budgettracker.dao;
 import java.util.List;
 import java.util.Optional;
 
-public interface CrudDAO<T> {
+public interface CrudDAO<T, K> {
 
     List<T> findAll();
 
-    Optional<T> findById(Long id);
+    Optional<T> findById(K id);
 
-    boolean existsById(Long id);
+    boolean existsById(K id);
 
     T save(T t);
 
-    void deleteById(Long id);
+    void deleteById(K id);
 
     T update(T t);
 

@@ -4,7 +4,7 @@ import com.vadim.budgettracker.entity.User;
 
 import java.util.Optional;
 
-public interface UserDAO extends CrudDAO<User> {
+public interface UserDAO extends CrudDAO<User, Long> {
 
     boolean existsByEmailAndNickname(String email, String nickname);
 
