@@ -1,13 +1,12 @@
 package com.vadim.budgettracker.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,10 +23,13 @@ public class Operation {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-  //  @JoinColumn(name = "category_name", referencedColumnName = "name")
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "categories_operations",
+            joinColumns = @JoinColumn(name = "operation_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @ToString.Exclude
+    private List<Category> categories;
 
     @Column(name = "created_date")
     private LocalDate createdDate;

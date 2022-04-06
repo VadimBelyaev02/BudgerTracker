@@ -1,9 +1,6 @@
 package com.vadim.budgettracker.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -38,8 +35,12 @@ public class Category {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "categories_operations",
+            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "operation_id", referencedColumnName = "id"))
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @ToString.Exclude
     private List<Operation> operations;
 
     public Long getUserId() {
